@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 리터러시 포트폴리오 | 이준혁</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <script>
+        // 테마 설정을 위한 스크립트 (플리커 방지)
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007AFF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        /* 테마별 배경 설정 */
+        body.dark {
+            background-color: #050505;
+            color: #ffffff;
+        }
+        body:not(.dark) {
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+        }
+
+        /* Animated Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            transition: opacity 0.5s ease;
+        }
+        .dark .mesh-bg {
+            background: 
+                radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 122, 255, 0.1) 0px, transparent 50%);
+        }
+        .light .mesh-bg {
+            background: 
+                radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 122, 255, 0.05) 0px, transparent 50%);
+        }
+
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Glassmorphism */
+        .glass {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .dark .glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            border: 1px solid rgba(0, 122, 255, 0.5);
+            box-shadow: 0 0 30px rgba(0, 122, 255, 0.15);
+        }
+        .dark .glass:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .light .glass:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.1);
+        }
+
+        /* Neon Text */
+        .neon-glow {
+            text-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
+        }
+
+        /* Theme Toggle Button Custom */
+        .theme-toggle-btn {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="dark transition-colors duration-500">
+    <div class="mesh-bg"></div>
+    <div class="noise"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md border-b border-black/5 dark:border-white/5">
+        <div class="font-bold text-xl tracking-tighter">AI <span class="text-[#007AFF]">LITERACY</span></div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:block text-sm font-medium text-gray-500 dark:text-gray-400">201829151 Lee Jun Hyuk</div>
+            <!-- Theme Toggle -->
+            <button onclick="toggleTheme()" class="theme-toggle-btn glass bg-white/5 dark:bg-black/5" aria-label="테마 전환">
+                <svg id="sun-icon" class="hidden w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                <svg id="moon-icon" class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-center items-center px-6 text-center pt-20">
+        <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium tracking-widest text-[#007AFF] uppercase" data-aos="fade-down">
+            Portfolio 2026
+        </div>
+        <h1 class="text-4xl md:text-7xl font-bold leading-tight mb-8 tracking-tight text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="100">
+            AI 리터러시의 이해 :<br>
+            <span class="text-[#007AFF] neon-glow">데이터로 세상을 읽고<br>AI로 쓰다</span>
+        </h1>
+        <p class="max-w-2xl text-gray-600 dark:text-gray-400 text-lg md:text-xl mb-12 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+            생성형 AI와 데이터 분석 도구를 활용하여 현실 세계의 문제를 이해하고, 데이터를 해석하며, 그 결과를 의미 있는 이야기와 콘텐츠로 표현하는 역량을 기릅니다.
+        </p>
+        <div class="flex gap-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="#tasks" class="px-8 py-4 bg-[#007AFF] text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg shadow-blue-500/20">
+                과제 탐색하기
+            </a>
+            <a href="#about" class="px-8 py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-gray-800 dark:text-white rounded-full font-bold hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                자기소개
+            </a>
+        </div>
+    </header>
+
+    <!-- Tasks Section -->
+    <main id="tasks" class="max-w-7xl mx-auto px-6 py-32">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+                <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white" data-aos="fade-right">Main Assignments</h2>
+                <p class="text-gray-600 dark:text-gray-400" data-aos="fade-right" data-aos-delay="100">지난 한 학기 동안 수행한 10가지의 주요 과제 리스트입니다.</p>
+            </div>
+            <div class="text-sm text-gray-400" data-aos="fade-left">Scroll to explore tasks</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 과제 카드 01 (수정됨: 버튼 이동 추가) -->
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" onclick="openModal('과제 01: AI의 이해', '구글 노트북 LM을 활용하여 AI란 무엇이고 AI 역사와 생성형 AI에 대해 자료 정리하는 실습', 'Google NotebookLM 활용 실습, AI 역사 타임라인 구성, 생성형 AI의 핵심 원리 정리', './02/index.html')">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 01</span>
+                    <svg class="w-5 h-5 opacity-30 dark:opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">AI의 이해</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">구글 노트북 LM을 활용하여 AI의 정의, 역사, 생성형 AI의 개념을 체계적으로 정리합니다.</p>
+                <div class="flex gap-2">
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">NotebookLM</span>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">AI History</span>
+                </div>
+            </div>
+
+            <!-- 과제 카드 02 -->
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openModal('과제 02: 공공데이터 분석', '서울시 따릉이 이용 데이터를 활용한 수요 예측 분석을 수행했습니다.', 'Pandas 데이터 정제, 시각화 라이브러리 활용, 트렌드 분석')">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 02</span>
+                    <svg class="w-5 h-5 opacity-30 dark:opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">데이터 분석 도구의 활용</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">데이터 분석 도구를 활용하여 현실 세계의 수치 데이터를 해석합니다.</p>
+                <div class="flex gap-2">
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Data Visualization</span>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Python</span>
+                </div>
+            </div>
+
+            <!-- 과제 카드 03 -->
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openModal('과제 03: 시각적 스토리텔링', 'Midjourney와 DALL-E 3를 이용해 추상적 정보를 예술로 변환합니다.', 'AI 아트웍, 비주얼 내러티브 구성')">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 03</span>
+                    <svg class="w-5 h-5 opacity-30 dark:opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">의미 있는 콘텐츠 표현</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">복잡한 데이터를 시각적이고 의미 있는 스토리텔링 콘텐츠로 변환합니다.</p>
+                <div class="flex gap-2">
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Midjourney</span>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Design</span>
+                </div>
+            </div>
+            
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up">
+                <div class="flex justify-between items-start mb-6"><span class="text-xs font-mono text-[#007AFF] font-bold">TASK 04</span></div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">AI 윤리와 책임</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">인공지능의 편향성과 윤리적 이슈를 비판적으로 탐구합니다.</p>
+                <div class="flex gap-2"><span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Ethics</span></div>
+            </div>
+
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up">
+                <div class="flex justify-between items-start mb-6"><span class="text-xs font-mono text-[#007AFF] font-bold">TASK 10</span></div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">최종 캡스톤 프로젝트</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">현실의 문제를 해결하는 종합 AI 리터러시 결과물을 완성합니다.</p>
+                <div class="flex gap-2"><span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Final Project</span></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-black/5 dark:bg-white/5 transition-colors duration-500">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="glass p-12 rounded-[2rem] text-center" data-aos="zoom-in">
+                <!-- Profile Image Container -->
+                <div class="relative w-40 h-40 mx-auto mb-8">
+                    <div class="w-full h-full rounded-full overflow-hidden border-4 border-[#007AFF]/30 shadow-2xl bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                        <img id="profile-img" src="image_e4b2fa.jpg" 
+                             alt="Lee Jun Hyuk Profile" class="w-full h-full object-cover scale-110">
+                    </div>
+                    <div class="absolute bottom-1 right-2 w-10 h-10 bg-[#007AFF] rounded-full border-4 border-white dark:border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">이준혁 | Lee Jun Hyuk</h2>
+                <p class="text-[#007AFF] font-mono mb-8 tracking-wider font-bold uppercase text-sm md:text-base">Department of Naval Architecture and Ocean Engineering</p>
+                <div class="h-px bg-black/10 dark:bg-white/10 w-24 mx-auto mb-8"></div>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto text-base md:text-lg">
+                    전통적인 엔지니어링 기술에 인공지능과 데이터 리터러시를 결합하여 더 지능적이고 효율적인 미래를 설계합니다. 
+                    AI는 단순히 코드의 작성이 아니라, 문제를 바라보는 새로운 시각이자 인간의 가능성을 확장하는 도구라고 믿습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-black/5 dark:border-white/5 text-center transition-colors duration-500">
+        <p class="text-gray-500 italic mb-10">"AI는 도구일 뿐, 해석의 주체는 인간입니다."</p>
+        <div class="flex justify-center gap-8 mb-12">
+            <a href="#" class="text-gray-400 hover:text-[#007AFF] transition-all">Email</a>
+            <a href="#" class="text-gray-400 hover:text-[#007AFF] transition-all">GitHub</a>
+            <a href="#" class="text-gray-400 hover:text-[#007AFF] transition-all">LinkedIn</a>
+        </div>
+        <div class="text-[10px] text-gray-500 font-mono tracking-widest uppercase">
+            © 2026 Lee Jun Hyuk Portfolio. Built with AI & Human Creativity.
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal-overlay" onclick="closeModal()">
+        <div class="glass p-10 rounded-3xl modal-content max-w-2xl w-full mx-auto" onclick="event.stopPropagation()">
+            <h2 id="modal-title" class="text-2xl font-bold mb-4 text-[#007AFF]"></h2>
+            <div class="h-px bg-black/10 dark:bg-white/10 w-full mb-6"></div>
+            <p id="modal-desc" class="text-gray-700 dark:text-gray-300 mb-6"></p>
+            <div id="modal-details" class="bg-black/5 dark:bg-black/40 p-6 rounded-2xl text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6"></div>
+            
+            <!-- Link Button Area -->
+            <div id="modal-link-container" class="mb-6 hidden">
+                <a id="modal-link-btn" href="#" class="flex items-center justify-center gap-2 w-full py-4 bg-[#007AFF] text-white rounded-xl hover:scale-[1.02] transition-transform font-bold shadow-lg shadow-blue-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    과제물 확인하기
+                </a>
+            </div>
+
+            <button onclick="closeModal()" class="w-full py-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-gray-900 dark:text-white font-bold">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        AOS.init({ duration: 800, once: true, easing: 'ease-in-out' });
+
+        function toggleTheme() {
+            const body = document.body;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark'); body.classList.add('light');
+                document.documentElement.classList.remove('dark');
+                sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light'); body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') toggleTheme();
+        });
+
+        const modal = document.getElementById('modal');
+        const linkContainer = document.getElementById('modal-link-container');
+        const linkBtn = document.getElementById('modal-link-btn');
+
+        function openModal(title, desc, details, link = null) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-details').innerHTML = `<strong class="text-gray-900 dark:text-white">주요 활동:</strong><br>${details}`;
+            
+            if (link) {
+                linkBtn.href = link;
+                linkContainer.classList.remove('hidden');
+            } else {
+                linkContainer.classList.add('hidden');
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
