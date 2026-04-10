@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 작동 원리 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-button.active {
+            border-bottom-color: #4f46e5;
+            color: #4f46e5;
+            background-color: #f5f3ff;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 pb-12">
+
+    <!-- Home Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors font-semibold">
+            <i class="fas fa-home"></i>
+            <span>홈으로</span>
+        </a>
+        <div class="text-xs text-slate-400 font-mono">Vanilla JS Edition</div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-indigo-700 text-white py-12 px-6 shadow-lg text-center">
+        <h1 class="text-4xl font-extrabold mb-4">웹 작동 원리와 핵심 기술 체계</h1>
+        <p class="max-w-2xl mx-auto text-indigo-100 text-lg">
+            인터넷 네트워크 위에서 정보가 흐르는 메커니즘을 탐구합니다.
+        </p>
+    </header>
+
+    <!-- Tabs Navigation -->
+    <nav class="bg-white shadow-md flex justify-center mb-8">
+        <div class="flex overflow-x-auto" id="tab-container">
+            <button onclick="showTab('concept')" id="btn-concept" class="tab-button active flex items-center gap-2 px-6 py-4 text-sm font-semibold transition-colors border-b-2 whitespace-nowrap">
+                <i class="fas fa-globe"></i> 웹의 개념
+            </button>
+            <button onclick="showTab('tools')" id="btn-tools" class="tab-button flex items-center gap-2 px-6 py-4 text-sm font-semibold transition-colors border-b-2 border-transparent text-slate-500 hover:text-indigo-500 whitespace-nowrap">
+                <i class="fas fa-code"></i> 3대 기술
+            </button>
+            <button onclick="showTab('process')" id="btn-process" class="tab-button flex items-center gap-2 px-6 py-4 text-sm font-semibold transition-colors border-b-2 border-transparent text-slate-500 hover:text-indigo-500 whitespace-nowrap">
+                <i class="fas fa-bolt"></i> 작동 프로세스
+            </button>
+            <button onclick="showTab('infra')" id="btn-infra" class="tab-button flex items-center gap-2 px-6 py-4 text-sm font-semibold transition-colors border-b-2 border-transparent text-slate-500 hover:text-indigo-500 whitespace-nowrap">
+                <i class="fas fa-layer-group"></i> 인프라 & 개발
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6">
+        <!-- Executive Summary -->
+        <section class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 mb-8 animate-fade">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-amber-100 text-amber-700 rounded-xl">
+                    <i class="fas fa-cog fa-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2">Executive Summary</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        웹은 클라이언트-서버 모델을 기반으로 작동합니다. 사용자의 브라우저(클라이언트)가 요청을 보내면 서버가 HTML, CSS, JS 데이터를 응답하며, 이 과정은 DNS와 HTTP 프로토콜이라는 규칙 위에서 이루어집니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Concept -->
+        <div id="content-concept" class="tab-content active animate-fade">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-indigo-600">
+                        <i class="fas fa-desktop"></i> 클라이언트 (Client)
+                    </h3>
+                    <div class="p-4 bg-slate-50 rounded-lg mb-4 text-center text-5xl">💻</div>
+                    <ul class="space-y-3 text-slate-600">
+                        <li>• 웹 브라우저 (Chrome, Safari 등)</li>
+                        <li>• 정보를 요청하는 '사용자' 기기</li>
+                        <li>• URL을 통해 서비스에 접근</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-rose-600">
+                        <i class="fas fa-server"></i> 서버 (Server)
+                    </h3>
+                    <div class="p-4 bg-slate-50 rounded-lg mb-4 text-center text-5xl">🗄️</div>
+                    <ul class="space-y-3 text-slate-600">
+                        <li>• 데이터를 저장하고 처리하는 컴퓨터</li>
+                        <li>• 클라이언트 요청에 응답(Response)</li>
+                        <li>• 웹 리소스를 호스팅하고 관리</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Tools -->
+        <div id="content-tools" class="tab-content animate-fade">
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="bg-orange-500 p-4 text-white text-center text-4xl">🦴</div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-1">HTML</h4>
+                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 뼈대</p>
+                        <p class="text-slate-600 text-sm">구조 정의 (제목, 본문, 이미지 등)</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="bg-blue-500 p-4 text-white text-center text-4xl">🎨</div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-1">CSS</h4>
+                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 스타일</p>
+                        <p class="text-slate-600 text-sm">디자인 정의 (글꼴, 색상, 레이아웃)</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                    <div class="bg-yellow-400 p-4 text-white text-center text-4xl">🧠</div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-1">JavaScript</h4>
+                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 두뇌</p>
+                        <p class="text-slate-600 text-sm">동적 기능 구현 (상호작용, 로직 처리)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Process -->
+        <div id="content-process" class="tab-content animate-fade">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold mb-8 text-center">브라우저의 요청 여정</h3>
+                <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 mb-12" id="process-steps">
+                    <!-- Steps generated via JS -->
+                </div>
+                <div id="step-description" class="p-6 bg-slate-50 rounded-xl border-l-4 border-indigo-600 text-slate-700 font-medium">
+                    대기 중...
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Infra -->
+        <div id="content-infra" class="tab-content animate-fade">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-6 text-indigo-600">개발 영역의 구분</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-indigo-100 bg-indigo-50 rounded-lg">
+                            <h4 class="font-bold flex items-center gap-2 mb-1"><i class="fas fa-laptop-code"></i> 프론트엔드</h4>
+                            <p class="text-sm text-slate-600">사용자 화면 개발 (HTML, CSS, JS)</p>
+                        </div>
+                        <div class="p-4 border border-rose-100 bg-rose-50 rounded-lg">
+                            <h4 class="font-bold flex items-center gap-2 mb-1 text-rose-700"><i class="fas fa-database"></i> 백엔드</h4>
+                            <p class="text-sm text-slate-600">서버 로직 및 DB 처리 (Java, Python 등)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-6 text-indigo-600">통신 규약 (Protocol)</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <span class="font-mono font-bold text-sm">HTTPS</span>
+                            <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded font-bold">Secure</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <span class="font-mono font-bold text-sm">WebSocket</span>
+                            <span class="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded font-bold">Real-time</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <span class="font-mono font-bold text-sm">FTP</span>
+                            <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded font-bold">File</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-indigo-900 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">전문가들의 도구함</h3>
+                    <p class="text-indigo-200 mb-4 text-sm">최신 웹 생태계를 구축하기 위한 필수 도구들</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">VS Code</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">Docker</span>
+                    </div>
+                </div>
+                <div class="flex gap-4 text-indigo-300">
+                    <i class="fas fa-microchip fa-3x"></i>
+                    <i class="fas fa-code-branch fa-3x"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 pt-8 text-center text-slate-400 text-sm">
+        <p>© 2024 Web Architecture Interactive Briefing Report</p>
+    </footer>
+
+    <script>
+        // Tab State Management
+        function showTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active', 'border-indigo-600', 'text-indigo-600', 'bg-indigo-50');
+                btn.classList.add('border-transparent', 'text-slate-500');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('active', 'border-indigo-600', 'text-indigo-600', 'bg-indigo-50');
+            activeBtn.classList.remove('border-transparent', 'text-slate-500');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('content-' + tabId).classList.add('active');
+
+            // Reset process animation if tab is switched
+            if (tabId === 'process') {
+                startProcessAnimation();
+            } else {
+                stopProcessAnimation();
+            }
+        }
+
+        // Process Animation Logic
+        const stepsData = [
+            { icon: 'fa-search', label: 'URL 입력', desc: '1단계: 사용자가 브라우저 주소창에 URL을 입력합니다.' },
+            { icon: 'fa-exchange-alt', label: 'DNS 변환', desc: '2단계: 도메인 이름을 실제 서버의 IP 주소로 변환합니다.' },
+            { icon: 'fa-shield-alt', label: 'HTTP 요청', desc: '3단계: 브라우저가 해당 IP의 서버로 데이터 요청을 보냅니다.' },
+            { icon: 'fa-server', label: '서버 응답', desc: '4단계: 서버가 요청을 처리하고 결과 데이터를 전송합니다.' },
+            { icon: 'fa-desktop', label: '렌더링', desc: '5단계: 브라우저가 받은 데이터를 해석해 화면에 그립니다.' }
+        ];
+
+        let currentStep = 0;
+        let processInterval = null;
+
+        function startProcessAnimation() {
+            stopProcessAnimation();
+            const container = document.getElementById('process-steps');
+            const desc = document.getElementById('step-description');
+            
+            function updateUI() {
+                container.innerHTML = stepsData.map((s, idx) => `
+                    <div class="flex flex-col items-center gap-3 transition-all duration-500 ${currentStep === idx ? 'scale-110' : 'opacity-40'}">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center text-white ${currentStep === idx ? 'bg-indigo-600 shadow-lg shadow-indigo-200' : 'bg-slate-300'}">
+                            <i class="fas ${s.icon}"></i>
+                        </div>
+                        <span class="text-sm font-bold ${currentStep === idx ? 'text-indigo-600' : 'text-slate-500'}">${s.label}</span>
+                    </div>
+                `).join('');
+                
+                desc.textContent = stepsData[currentStep].desc;
+                currentStep = (currentStep + 1) % stepsData.length;
+            }
+
+            updateUI();
+            processInterval = setInterval(updateUI, 3000);
+        }
+
+        function stopProcessAnimation() {
+            if (processInterval) {
+                clearInterval(processInterval);
+                processInterval = null;
+            }
+            currentStep = 0;
+        }
+
+        // Initialize
+        window.onload = () => {
+            // Default tab is already active via HTML classes
+        };
+    </script>
+</body>
+</html>
