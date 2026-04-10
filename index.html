@@ -175,7 +175,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 과제 카드 01 (수정됨: 버튼 이동 추가) -->
+            <!-- 과제 카드 01 -->
             <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" onclick="openModal('과제 01: AI의 이해', '구글 노트북 LM을 활용하여 AI란 무엇이고 AI 역사와 생성형 AI에 대해 자료 정리하는 실습', 'Google NotebookLM 활용 실습, AI 역사 타임라인 구성, 생성형 AI의 핵심 원리 정리', './02/index.html')">
                 <div class="flex justify-between items-start mb-6">
                     <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 01</span>
@@ -189,17 +189,16 @@
                 </div>
             </div>
 
-            <!-- 과제 카드 02 -->
-            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openModal('과제 02: 공공데이터 분석', '서울시 따릉이 이용 데이터를 활용한 수요 예측 분석을 수행했습니다.', 'Pandas 데이터 정제, 시각화 라이브러리 활용, 트렌드 분석')">
+            <!-- 과제 카드 02 (수정됨: 데이터 스토리텔링) -->
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openModal('과제 02: 데이터 스토리텔링', '공공 데이터를 분석하고 인사이트를 도출하여 시각적으로 설득력 있는 리포트를 작성하여 스토리북으로 만들기', '공공 데이터 전처리 및 탐색적 분석(EDA), 핵심 인사이트 도출, 시각적 리포트 레이아웃 설계', './03/index.html')">
                 <div class="flex justify-between items-start mb-6">
                     <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 02</span>
                     <svg class="w-5 h-5 opacity-30 dark:opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">데이터 분석 도구의 활용</h3>
-                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">데이터 분석 도구를 활용하여 현실 세계의 수치 데이터를 해석합니다.</p>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">데이터 스토리텔링</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">데이터 분석 결과를 바탕으로 타인을 설득할 수 있는 시각적 서사를 구축합니다.</p>
                 <div class="flex gap-2">
-                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Data Visualization</span>
-                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Python</span>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Gemini 스토리북</span>
                 </div>
             </div>
 
@@ -284,7 +283,7 @@
             <div id="modal-link-container" class="mb-6 hidden">
                 <a id="modal-link-btn" href="#" class="flex items-center justify-center gap-2 w-full py-4 bg-[#007AFF] text-white rounded-xl hover:scale-[1.02] transition-transform font-bold shadow-lg shadow-blue-500/20">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    과제물 확인하기
+                    결과 확인하기
                 </a>
             </div>
 
