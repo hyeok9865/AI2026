@@ -19,18 +19,69 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
+        
+        /* Modal Style */
+        #infographic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #infographic-modal.active {
+            display: flex;
+        }
+        .modal-container {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-900 pb-12">
 
     <!-- Home Navigation Bar -->
-    <nav class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
-        <a href="../index.html" class="flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors font-semibold">
-            <i class="fas fa-home"></i>
-            <span>홈으로</span>
-        </a>
+    <nav class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-6">
+            <a href="../index.html" class="flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors font-semibold">
+                <i class="fas fa-home"></i>
+                <span>홈으로</span>
+            </a>
+        </div>
         <div class="text-xs text-slate-400 font-mono">Vanilla JS Edition</div>
     </nav>
+
+    <!-- Infographic Modal -->
+    <div id="infographic-modal" onclick="closeModal()">
+        <div class="modal-container animate-fade" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white text-3xl hover:text-indigo-400 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="bg-white p-1 rounded-xl shadow-2xl overflow-hidden">
+                <!-- 사용자가 업로드한 인포그래픽 이미지 -->
+                <img src="웹작동원리 인포그래픽.jpg" 
+                     alt="웹 작동 원리 인포그래픽" 
+                     class="modal-image">
+                <div class="p-4 text-center bg-slate-50 border-t border-slate-100">
+                    <p class="text-slate-700 font-bold">한눈에 이해하는 웹(Web)의 작동 원리</p>
+                    <p class="text-slate-500 text-xs mt-1">도구: HTML, CSS, JavaScript | 과정: 3단계 흐름</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="bg-indigo-700 text-white py-12 px-6 shadow-lg text-center">
@@ -75,7 +126,7 @@
             </div>
         </section>
 
-        <!-- Tab: Concept -->
+        <!-- Tab Content Areas -->
         <div id="content-concept" class="tab-content active animate-fade">
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
@@ -103,109 +154,105 @@
             </div>
         </div>
 
-        <!-- Tab: Tools -->
         <div id="content-tools" class="tab-content animate-fade">
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
                     <div class="bg-orange-500 p-4 text-white text-center text-4xl">🦴</div>
-                    <div class="p-6">
+                    <div class="p-6 text-center">
                         <h4 class="font-bold text-xl mb-1">HTML</h4>
-                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 뼈대</p>
-                        <p class="text-slate-600 text-sm">구조 정의 (제목, 본문, 이미지 등)</p>
+                        <p class="text-slate-600 text-sm">웹의 구조와 뼈대</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
                     <div class="bg-blue-500 p-4 text-white text-center text-4xl">🎨</div>
-                    <div class="p-6">
+                    <div class="p-6 text-center">
                         <h4 class="font-bold text-xl mb-1">CSS</h4>
-                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 스타일</p>
-                        <p class="text-slate-600 text-sm">디자인 정의 (글꼴, 색상, 레이아웃)</p>
+                        <p class="text-slate-600 text-sm">디자인과 스타일링</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
                     <div class="bg-yellow-400 p-4 text-white text-center text-4xl">🧠</div>
-                    <div class="p-6">
+                    <div class="p-6 text-center">
                         <h4 class="font-bold text-xl mb-1">JavaScript</h4>
-                        <p class="text-sm text-indigo-600 font-semibold mb-3">웹의 두뇌</p>
-                        <p class="text-slate-600 text-sm">동적 기능 구현 (상호작용, 로직 처리)</p>
+                        <p class="text-slate-600 text-sm">동적 상호작용과 로직</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab: Process -->
         <div id="content-process" class="tab-content animate-fade">
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
                 <h3 class="text-xl font-bold mb-8 text-center">브라우저의 요청 여정</h3>
-                <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 mb-12" id="process-steps">
-                    <!-- Steps generated via JS -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 mb-12" id="process-steps"></div>
+                <div id="step-description" class="p-6 bg-slate-50 rounded-xl border-l-4 border-indigo-600 text-slate-700 font-medium">대기 중...</div>
+            </div>
+        </div>
+
+        <div id="content-infra" class="tab-content animate-fade">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-6 text-indigo-600">개발 영역 구분</h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-100 font-bold text-sm">프론트엔드 (UI/UX)</div>
+                        <div class="p-3 bg-rose-50 rounded-lg border border-rose-100 font-bold text-sm text-rose-700">백엔드 (API/DB)</div>
+                    </div>
                 </div>
-                <div id="step-description" class="p-6 bg-slate-50 rounded-xl border-l-4 border-indigo-600 text-slate-700 font-medium">
-                    대기 중...
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-6 text-indigo-600">통신 규약</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-100 rounded text-xs font-mono">HTTPS</span>
+                        <span class="px-3 py-1 bg-slate-100 rounded text-xs font-mono">WebSocket</span>
+                        <span class="px-3 py-1 bg-slate-100 rounded text-xs font-mono">FTP</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab: Infra -->
-        <div id="content-infra" class="tab-content animate-fade">
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold mb-6 text-indigo-600">개발 영역의 구분</h3>
-                    <div class="space-y-4">
-                        <div class="p-4 border border-indigo-100 bg-indigo-50 rounded-lg">
-                            <h4 class="font-bold flex items-center gap-2 mb-1"><i class="fas fa-laptop-code"></i> 프론트엔드</h4>
-                            <p class="text-sm text-slate-600">사용자 화면 개발 (HTML, CSS, JS)</p>
-                        </div>
-                        <div class="p-4 border border-rose-100 bg-rose-50 rounded-lg">
-                            <h4 class="font-bold flex items-center gap-2 mb-1 text-rose-700"><i class="fas fa-database"></i> 백엔드</h4>
-                            <p class="text-sm text-slate-600">서버 로직 및 DB 처리 (Java, Python 등)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold mb-6 text-indigo-600">통신 규약 (Protocol)</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                            <span class="font-mono font-bold text-sm">HTTPS</span>
-                            <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded font-bold">Secure</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                            <span class="font-mono font-bold text-sm">WebSocket</span>
-                            <span class="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded font-bold">Real-time</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                            <span class="font-mono font-bold text-sm">FTP</span>
-                            <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded font-bold">File</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Multimedia Buttons Section -->
+        <section class="mt-12 pt-8 border-t border-slate-200">
+            <h3 class="text-center text-slate-400 text-sm font-semibold mb-6 uppercase tracking-widest">추가 학습 자료</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- 인포그래픽 버튼 -->
+                <button onclick="openModal()" class="flex items-center gap-2 bg-white text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all px-6 py-3 rounded-xl border-2 border-indigo-600 font-bold shadow-sm">
+                    <i class="fas fa-image"></i>
+                    <span>인포그래픽</span>
+                </button>
+                <!-- 동영상 버튼 (지정된 링크 팝업) -->
+                <button onclick="window.open('https://notebooklm.google.com/notebook/b4ef4140-543e-4a91-beb6-81fe10371940?artifactId=4237910b-223e-4caa-b677-afe475c4792f', '_blank')" class="flex items-center gap-2 bg-white text-rose-600 hover:bg-rose-600 hover:text-white transition-all px-6 py-3 rounded-xl border-2 border-rose-600 font-bold shadow-sm">
+                    <i class="fas fa-play-circle"></i>
+                    <span>동영상</span>
+                </button>
+                <!-- 슬라이드 버튼 (업로드된 PDF 파일 열기) -->
+                <button onclick="window.open('웹작동원리 슬라이드.pdf', '_blank')" class="flex items-center gap-2 bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all px-6 py-3 rounded-xl border-2 border-emerald-600 font-bold shadow-sm">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <span>슬라이드</span>
+                </button>
             </div>
-            <div class="bg-indigo-900 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-8">
-                <div class="flex-1 text-center md:text-left">
-                    <h3 class="text-2xl font-bold mb-2">전문가들의 도구함</h3>
-                    <p class="text-indigo-200 mb-4 text-sm">최신 웹 생태계를 구축하기 위한 필수 도구들</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">Git/GitHub</span>
-                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">VS Code</span>
-                        <span class="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">Docker</span>
-                    </div>
-                </div>
-                <div class="flex gap-4 text-indigo-300">
-                    <i class="fas fa-microchip fa-3x"></i>
-                    <i class="fas fa-code-branch fa-3x"></i>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer class="mt-16 border-t border-slate-200 pt-8 text-center text-slate-400 text-sm">
         <p>© 2024 Web Architecture Interactive Briefing Report</p>
     </footer>
 
+    <!-- Simple Message Box -->
+    <div id="message-box" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-sm font-semibold shadow-2xl opacity-0 transition-opacity pointer-events-none z-[2000]">
+    </div>
+
     <script>
+        // Modal Control
+        function openModal() {
+            document.getElementById('infographic-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('infographic-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
         // Tab State Management
         function showTab(tabId) {
-            // Update buttons
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active', 'border-indigo-600', 'text-indigo-600', 'bg-indigo-50');
                 btn.classList.add('border-transparent', 'text-slate-500');
@@ -214,13 +261,11 @@
             activeBtn.classList.add('active', 'border-indigo-600', 'text-indigo-600', 'bg-indigo-50');
             activeBtn.classList.remove('border-transparent', 'text-slate-500');
 
-            // Update content
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             document.getElementById('content-' + tabId).classList.add('active');
 
-            // Reset process animation if tab is switched
             if (tabId === 'process') {
                 startProcessAnimation();
             } else {
@@ -228,7 +273,7 @@
             }
         }
 
-        // Process Animation Logic
+        // Process Animation
         const stepsData = [
             { icon: 'fa-search', label: 'URL 입력', desc: '1단계: 사용자가 브라우저 주소창에 URL을 입력합니다.' },
             { icon: 'fa-exchange-alt', label: 'DNS 변환', desc: '2단계: 도메인 이름을 실제 서버의 IP 주소로 변환합니다.' },
@@ -271,10 +316,13 @@
             currentStep = 0;
         }
 
-        // Initialize
-        window.onload = () => {
-            // Default tab is already active via HTML classes
-        };
+        // Custom Message Box instead of alert
+        function showMessage(msg) {
+            const box = document.getElementById('message-box');
+            box.textContent = msg;
+            box.style.opacity = '1';
+            setTimeout(() => { box.style.opacity = '0'; }, 2000);
+        }
     </script>
 </body>
 </html>
