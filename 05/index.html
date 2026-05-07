@@ -64,7 +64,6 @@
             transition: transform 0.5s ease;
         }
 
-        /* 스토리북 카드 애니메이션 */
         .story-card-overlay {
             opacity: 0;
             transition: all 0.3s ease;
@@ -72,6 +71,18 @@
         .story-card:hover .story-card-overlay {
             opacity: 1;
         }
+
+        /* Bridge Section Custom Styling */
+        .connector-line {
+            position: absolute;
+            left: 50%;
+            top: -2rem;
+            bottom: -2rem;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent-blue), transparent);
+            display: none;
+        }
+        @media (min-width: 768px) { .connector-line { display: block; } }
     </style>
 </head>
 <body class="hero-gradient">
@@ -85,6 +96,7 @@
                 <a href="#major" class="hover:text-blue-400 transition-colors">전공</a>
                 <a href="#data" class="hover:text-blue-400 transition-colors">데이터</a>
                 <a href="#media" class="hover:text-blue-400 transition-colors">멀티미디어</a>
+                <a href="#bridge" class="hover:text-blue-400 transition-colors">연결</a>
                 <a href="#future" class="hover:text-blue-400 transition-colors">비전</a>
             </div>
         </div>
@@ -118,7 +130,6 @@
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                     <div class="profile-img-container bg-slate-900">
-                        <!-- 사용자 요청 사진 경로 적용 -->
                         <img src="./05/%EC%A4%80%ED%98%812%20%EB%B3%B5%EC%82%AC.jpeg" alt="이준혁 프로필 사진" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800'">
                     </div>
                 </div>
@@ -236,54 +247,122 @@
     <!-- 4. 멀티미디어 영역 -->
     <section id="media" class="section-padding px-6 bg-slate-100">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-10 text-center md:text-left">
+            <div class="mb-10 text-center">
                 <h2 class="text-3xl font-bold text-slate-900">멀티미디어 아카이브</h2>
-                <p class="text-slate-700 mt-2 font-bold">AI 기술을 활용해 제작한 다양한 콘텐츠입니다.</p>
+                <p class="text-slate-700 mt-2 font-bold">AI 기술을 활용해 제작한 핵심 콘텐츠입니다.</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- 전공 스토리북 카드 -->
-                <div class="story-card bg-white p-6 relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all border border-slate-200 rounded-2xl">
-                    <div class="h-40 bg-blue-50 rounded-xl mb-4 flex items-center justify-center transition-transform group-hover:scale-95">
-                        <i data-lucide="book-marked" class="w-12 h-12 text-blue-600"></i>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div class="story-card bg-white p-8 relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all border border-slate-200 rounded-3xl">
+                    <div class="h-48 bg-blue-50 rounded-2xl mb-6 flex items-center justify-center relative transition-transform group-hover:scale-95">
+                        <i data-lucide="book-marked" class="w-20 h-20 text-blue-600 relative z-10"></i>
+                        <i data-lucide="graduation-cap" class="absolute top-4 left-4 w-8 h-8 text-blue-200"></i>
+                        <i data-lucide="microscope" class="absolute bottom-4 right-4 w-8 h-8 text-blue-200"></i>
                     </div>
                     <div class="text-center">
-                        <h5 class="font-bold mb-1 text-slate-900">전공 스토리북</h5>
-                        <p class="text-xs text-slate-600 italic font-bold">조선공학의 기초와 AI의 만남</p>
+                        <h5 class="font-bold text-xl mb-2 text-slate-900">전공 스토리북</h5>
+                        <p class="text-sm text-slate-600 italic font-bold">조선공학의 기초와 AI의 만남</p>
                     </div>
-                    
                     <div class="story-card-overlay absolute inset-0 bg-blue-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-                        <a href="https://gemini.google.com/share/4406639628b8" target="_blank" class="px-5 py-2.5 bg-white text-blue-900 rounded-full font-bold text-sm shadow-xl hover:bg-blue-50 transition-colors flex items-center gap-2">
-                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <a href="https://gemini.google.com/share/4406639628b8" target="_blank" class="px-6 py-3 bg-white text-blue-900 rounded-full font-bold text-base shadow-xl hover:bg-blue-50 transition-colors flex items-center gap-2">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
                             스토리북 보기
                         </a>
                     </div>
                 </div>
 
-                <!-- 인포그래픽 리포트 -->
-                <div class="bg-white p-6 group cursor-pointer hover:shadow-md transition-all border border-slate-200 rounded-2xl">
-                    <div class="h-40 bg-emerald-50 rounded-xl mb-4 flex items-center justify-center transition-transform group-hover:scale-95">
-                        <i data-lucide="presentation" class="w-12 h-12 text-emerald-600"></i>
+                <div class="story-card bg-white p-8 relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all border border-slate-200 rounded-3xl">
+                    <div class="h-48 bg-emerald-50 rounded-2xl mb-6 flex items-center justify-center relative transition-transform group-hover:scale-95">
+                        <i data-lucide="presentation" class="w-20 h-20 text-emerald-600 relative z-10"></i>
+                        <i data-lucide="line-chart" class="absolute top-4 right-4 w-8 h-8 text-emerald-200"></i>
+                        <i data-lucide="pie-chart" class="absolute bottom-4 left-4 w-8 h-8 text-emerald-200"></i>
                     </div>
-                    <h5 class="font-bold mb-1 text-slate-900 text-center">인포그래픽 리포트</h5>
-                    <p class="text-xs text-slate-600 italic text-center font-bold">글로벌 선박 시장 동향 2024</p>
+                    <div class="text-center">
+                        <h5 class="font-bold text-xl mb-2 text-slate-900">인포그래픽 리포트</h5>
+                        <p class="text-sm text-slate-600 italic font-bold">2026 K-조선 전망</p>
+                    </div>
+                    <div class="story-card-overlay absolute inset-0 bg-emerald-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+                        <a href="./05/2026%20%ED%95%9C%EA%B5%AD%EC%A1%B0%EC%84%A0%EC%97%85%EC%A0%84%EB%A7%9D%20%EC%9D%B8%ED%8F%AC%EA%B7%B8%EB%9E%98%ED%94%BD.png" target="_blank" class="px-6 py-3 bg-white text-emerald-900 rounded-full font-bold text-base shadow-xl hover:bg-emerald-50 transition-colors flex items-center gap-2">
+                            <i data-lucide="image" class="w-5 h-5"></i>
+                            이미지 보기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Bridge Section (경험과 전공의 연결) -->
+    <section id="bridge" class="section-padding px-6 bg-slate-900 overflow-hidden relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">방황의 끝에서 찾은 <span class="text-blue-400">항해의 지도</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto font-medium">사진가의 섬세한 눈과 개발자의 논리적 사고가 조선해양공학이라는 넓은 바다에서 하나로 만납니다.</p>
+            </div>
+
+            <div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+                <div class="connector-line"></div>
+                
+                <!-- Left Content: Experience -->
+                <div class="space-y-8 relative">
+                    <div class="glass-panel p-6 border-l-4 border-blue-500 transform transition hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-3">
+                            <i data-lucide="camera" class="text-blue-400 w-6 h-6"></i>
+                            <h3 class="text-xl font-bold text-white">사진작가의 디테일</h3>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            서울에서의 사진작가 경험은 6개월 만에 지점장이 될 정도의 <strong class="text-white">독한 근성</strong>과 찰나의 미학을 잡는 <strong class="text-white">섬세한 눈썰미</strong>를 길러주었습니다. 이 눈썰미는 이제 선박의 미세한 구조적 결함을 찾고 완벽한 설계를 다듬는 엔지니어의 감각이 됩니다.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 border-l-4 border-emerald-500 transform transition hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-3">
+                            <i data-lucide="terminal" class="text-emerald-400 w-6 h-6"></i>
+                            <h3 class="text-xl font-bold text-white">프로그래밍의 논리</h3>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            어릴 적부터 좋아하던 컴퓨터 프로그래밍에 대한 관심은 조선해양공학을 단순한 '기계공학'이 아닌 <strong class="text-white">'디지털 기반의 스마트 공학'</strong>으로 바라보게 하는 창이 되었습니다.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- 자기소개 영상 -->
-                <div class="bg-white p-6 group cursor-pointer hover:shadow-md transition-all border border-slate-200 rounded-2xl">
-                    <div class="h-40 bg-purple-50 rounded-xl mb-4 flex items-center justify-center transition-transform group-hover:scale-95">
-                        <i data-lucide="clapperboard" class="w-12 h-12 text-purple-600"></i>
+                <!-- Right Content: Synthesis -->
+                <div class="space-y-8">
+                    <div class="p-8 bg-gradient-to-br from-blue-600/20 to-emerald-600/20 rounded-3xl border border-white/10">
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i data-lucide="combine" class="w-6 h-6 text-blue-400"></i>
+                            어떻게 연결되는가?
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/30">
+                                    <span class="text-blue-400 font-bold">01</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">자율운항 시스템 개발</h4>
+                                    <p class="text-sm text-slate-400">사진을 통해 익힌 시각적 데이터 처리 감각과 프로그래밍 능력을 결합하여 선박의 자율운항 및 장애물 회피 시스템 최적화에 기여합니다.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 border border-emerald-500/30">
+                                    <span class="text-emerald-400 font-bold">02</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">스마트 선박 디자인 & 설계</h4>
+                                    <p class="text-sm text-slate-400">예술적 감각을 엔지니어링 설계에 녹여내어, 기능적이면서도 아름다운 차세대 고부가가치 선박 디자인을 완성합니다.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 border border-purple-500/30">
+                                    <span class="text-purple-400 font-bold">03</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">근성 기반의 문제 해결</h4>
+                                    <p class="text-sm text-slate-400">방황의 시간을 딛고 일어선 끈기는 복잡한 공학적 난관을 만났을 때 끝까지 해결책을 찾아내는 가장 강력한 무기가 될 것입니다.</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <h5 class="font-bold mb-1 text-slate-900 text-center">자기소개 영상</h5>
-                    <p class="text-xs text-slate-600 italic text-center font-bold">나의 강점과 비전 인터뷰</p>
-                </div>
-
-                <!-- 카드뉴스 시리즈 -->
-                <div class="bg-white p-6 group cursor-pointer hover:shadow-md transition-all border border-slate-200 rounded-2xl">
-                    <div class="h-40 bg-orange-50 rounded-xl mb-4 flex items-center justify-center transition-transform group-hover:scale-95">
-                        <i data-lucide="layout-grid" class="w-12 h-12 text-orange-600"></i>
-                    </div>
-                    <h5 class="font-bold mb-1 text-slate-900 text-center">카드뉴스 시리즈</h5>
-                    <p class="text-xs text-slate-600 italic text-center font-bold">스마트 조선소의 미래 모습</p>
                 </div>
             </div>
         </div>
