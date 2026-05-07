@@ -50,12 +50,11 @@
         
         .profile-img-container {
             position: relative;
-            width: 280px;
-            aspect-ratio: 3 / 4;
+            width: 256px;
+            height: 320px;
             border-radius: 1.5rem;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
         
         .profile-img-container img {
@@ -73,6 +72,7 @@
             opacity: 1;
         }
 
+        /* Bridge Section Custom Styling */
         .connector-line {
             position: absolute;
             left: 50%;
@@ -128,19 +128,16 @@
         <div class="max-w-6xl mx-auto">
             <div class="glass-panel p-8 md:p-12 flex flex-col md:flex-row gap-12 items-center">
                 <div class="relative group">
-                    <div class="absolute -inset-2 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                     <div class="profile-img-container bg-slate-900">
-                        <!-- 업로드된 사진 적용 -->
-                        <img src="준혁2 복사.jpg" alt="이준혁 프로필 사진" class="group-hover:scale-105 transition-transform duration-700">
+                        <!-- 프로필 사진 경로 수정됨 -->
+                        <img src="./05/준혁2복사.jpeg" alt="이준혁 프로필 사진" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800'">
                     </div>
                 </div>
                 <div class="flex-1 space-y-6">
-                    <div class="space-y-2">
-                        <h2 class="text-3xl font-bold text-white">"데이터로 항해하는 공학자, 이준혁"</h2>
-                        <p class="text-blue-400 font-semibold italic text-sm">#조선해양공학 #AI_리터러시 #근성_엔지니어</p>
-                    </div>
+                    <h2 class="text-3xl font-bold text-white">"데이터로 항해하는 공학자, 이준혁"</h2>
                     <p class="text-white leading-relaxed text-lg font-medium">
-                        저는 거대한 선박이 파도를 가르는 역학적인 원리에 매료되어 <strong class="text-blue-400 font-bold">조선해양공학</strong>을 전공하고 있습니다. 
+                        저는 거대한 선박이 파도를 가르는 역학적인 원리에 매료되어 <strong class="text-blue-400 font-bold">조선해양공학</strong>을 선택했습니다. 
                         단순히 기계를 설계하는 것을 넘어, 선박에서 발생하는 방대한 데이터를 AI 기술로 해석하여 더욱 안전하고 효율적인 해양 미래를 만드는 엔지니어를 꿈꿉니다.
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -150,7 +147,7 @@
                         </div>
                         <div class="p-4 rounded-xl bg-white/10 border border-white/10">
                             <p class="text-xs text-emerald-400 font-bold uppercase mb-1">Key Strength</p>
-                            <p class="font-bold text-white">AI 데이터 분석 & 구조 해석</p>
+                            <p class="font-bold text-white">AI 데이터 리터러시 & 구조 해석</p>
                         </div>
                     </div>
                 </div>
@@ -286,7 +283,7 @@
                         <p class="text-sm text-slate-600 italic font-bold">2026 K-조선 전망</p>
                     </div>
                     <div class="story-card-overlay absolute inset-0 bg-emerald-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-                        <a href="https://via.placeholder.com/1200x800" target="_blank" class="px-6 py-3 bg-white text-emerald-900 rounded-full font-bold text-base shadow-xl hover:bg-emerald-50 transition-colors flex items-center gap-2">
+                        <a href="./05/2026%20%ED%95%9C%EA%B5%AD%EC%A1%B0%EC%84%A0%EC%97%85%EC%A0%84%EB%A7%9D%20%EC%9D%B8%ED%8F%AC%EA%B7%B8%EB%9E%98%ED%94%BD.png" target="_blank" class="px-6 py-3 bg-white text-emerald-900 rounded-full font-bold text-base shadow-xl hover:bg-emerald-50 transition-colors flex items-center gap-2">
                             <i data-lucide="image" class="w-5 h-5"></i>
                             이미지 보기
                         </a>
@@ -296,7 +293,7 @@
         </div>
     </section>
 
-    <!-- Bridge Section -->
+    <!-- Bridge Section (경험과 전공의 연결) -->
     <section id="bridge" class="section-padding px-6 bg-slate-900 overflow-hidden relative">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
@@ -307,6 +304,7 @@
             <div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
                 <div class="connector-line"></div>
                 
+                <!-- Left Content: Experience -->
                 <div class="space-y-8 relative">
                     <div class="glass-panel p-6 border-l-4 border-blue-500 transform transition hover:-translate-y-1">
                         <div class="flex items-center gap-4 mb-3">
@@ -314,7 +312,7 @@
                             <h3 class="text-xl font-bold text-white">사진작가의 디테일</h3>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            서울에서의 사진작가 경험은 6개월 만에 지점장이 될 정도의 <strong class="text-white">독한 근성</strong>과 찰나의 미학을 잡는 <strong class="text-white">섬세한 눈썰미</strong>를 길러주었습니다. 이 눈썰미는 선박 설계의 디테일을 다듬는 핵심 감각이 됩니다.
+                            서울에서의 사진작가 경험은 6개월 만에 지점장이 될 정도의 <strong class="text-white">독한 근성</strong>과 찰나의 미학을 잡는 <strong class="text-white">섬세한 눈썰미</strong>를 길러주었습니다. 이 눈썰미는 이제 선박의 미세한 구조적 결함을 찾고 완벽한 설계를 다듬는 엔지니어의 감각이 됩니다.
                         </p>
                     </div>
 
@@ -324,11 +322,12 @@
                             <h3 class="text-xl font-bold text-white">프로그래밍의 논리</h3>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            어릴 적부터 좋아하던 컴퓨터 프로그래밍에 대한 관심은 조선해양공학을 <strong class="text-white">'디지털 기반의 스마트 공학'</strong>으로 바라보게 하는 창이 되었습니다.
+                            어릴 적부터 좋아하던 컴퓨터 프로그래밍에 대한 관심은 조선해양공학을 단순한 '기계공학'이 아닌 <strong class="text-white">'디지털 기반의 스마트 공학'</strong>으로 바라보게 하는 창이 되었습니다.
                         </p>
                     </div>
                 </div>
 
+                <!-- Right Content: Synthesis -->
                 <div class="space-y-8">
                     <div class="p-8 bg-gradient-to-br from-blue-600/20 to-emerald-600/20 rounded-3xl border border-white/10">
                         <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
@@ -341,8 +340,8 @@
                                     <span class="text-blue-400 font-bold">01</span>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white mb-1">자율운항 시스템 최적화</h4>
-                                    <p class="text-sm text-slate-400">시각 처리 감각과 프로그래밍 능력을 결합하여 선박의 자율운항 알고리즘 고도화에 기여합니다.</p>
+                                    <h4 class="font-bold text-white mb-1">자율운항 시스템 개발</h4>
+                                    <p class="text-sm text-slate-400">사진을 통해 익힌 시각적 데이터 처리 감각과 프로그래밍 능력을 결합하여 선박의 자율운항 및 장애물 회피 시스템 최적화에 기여합니다.</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
@@ -350,8 +349,17 @@
                                     <span class="text-emerald-400 font-bold">02</span>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white mb-1">고부가가치 선박 디자인</h4>
-                                    <p class="text-sm text-slate-400">사진을 통해 배운 미학적 관점을 엔지니어링에 녹여내어 미래 선박의 새로운 디자인 패러다임을 제안합니다.</p>
+                                    <h4 class="font-bold text-white mb-1">스마트 선박 디자인 & 설계</h4>
+                                    <p class="text-sm text-slate-400">예술적 감각을 엔지니어링 설계에 녹여내어, 기능적이면서도 아름다운 차세대 고부가가치 선박 디자인을 완성합니다.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 border border-purple-500/30">
+                                    <span class="text-purple-400 font-bold">03</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">근성 기반의 문제 해결</h4>
+                                    <p class="text-sm text-slate-400">방황의 시간을 딛고 일어선 끈기는 복잡한 공학적 난관을 만났을 때 끝까지 해결책을 찾아내는 가장 강력한 무기가 될 것입니다.</p>
                                 </div>
                             </li>
                         </ul>
@@ -374,7 +382,12 @@
                 <div class="relative pl-8 border-l-4 border-emerald-600">
                     <div class="absolute -left-2.5 top-0 w-4 h-4 bg-emerald-600 rounded-full shadow-md"></div>
                     <h4 class="font-extrabold text-emerald-700 mb-2 text-lg">STEP 2. 스마트 선박 제어 알고리즘 연구</h4>
-                    <p class="text-slate-900 text-base leading-relaxed font-bold">자율 운항 선박의 핵심인 충돌 회피 및 에너지 효율 최적화 알고리즘 연구를 통해 실질적인 성과를 내겠습니다.</p>
+                    <p class="text-slate-900 text-base leading-relaxed font-bold">자율 운항 선박의 핵심인 충돌 회피 및 에너지 효율 최적화 알고리즘 연구에 참여하여 실질적인 기술적 기여를 하겠습니다.</p>
+                </div>
+                <div class="relative pl-8 border-l-4 border-purple-600">
+                    <div class="absolute -left-2.5 top-0 w-4 h-4 bg-purple-600 rounded-full shadow-md"></div>
+                    <h4 class="font-extrabold text-purple-700 mb-2 text-lg">STEP 3. 조선해양 산업의 디지털 트랜스포메이션 리더</h4>
+                    <p class="text-slate-900 text-base leading-relaxed font-bold">현장 경험과 AI 도구 활용 능력을 바탕으로, 보수적인 조선 산업을 혁신적인 디지털 환경으로 전환하는 융합형 리더로 성장하겠습니다.</p>
                 </div>
             </div>
         </div>
