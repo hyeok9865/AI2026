@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인포그래픽: 고령운전자 급증 분석</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Noto Sans KR', sans-serif; background-color: #F0F4F8; color: #1E293B; }
+.glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+.chart-container { position: relative; width: 100%; max-width: 100%; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+@media (min-width: 768px) { .chart-container { height: 400px; max-width: 600px; } }
+.text-gradient { background: linear-gradient(90deg, #1E40AF 0%, #0D9488 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body class="antialiased pb-12">
+<!-- Palette: Vibrant Blue (#1E40AF) & Teal (#0D9488) & Amber (#D97706). Plan: Hook -> Big Stats -> Trend Combo Chart -> Distribution Donut -> Solutions Flow. Visuals: Combo Chart (Change), Donut (Compare), HTML Cards (Organize). Confirming NO SVG and NO MERMAID JS were used. -->
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    
+    <header class="text-center mb-12 animate-fade-in-up">
+        <div class="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 font-bold text-sm mb-4 tracking-wider">교통안전 심층 리포트 2024</div>
+        <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">도로 위 5명 중 1명은 <br><span class="text-gradient">‘고령운전자’</span></h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-medium">전체 운전자 수는 감소세이나 고령층은 가파른 상승 곡선을 그리고 있습니다. 2024년 고령운전자 비중 21.6% 돌파, 초고령사회 진입에 따른 대책이 시급합니다.</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="glass-card rounded-2xl p-6 shadow-lg border-t-4 border-amber-500 text-center flex flex-col justify-center transform transition duration-300 hover:scale-105">
+            <div class="text-4xl mb-2">📈</div>
+            <h3 class="text-gray-500 font-semibold text-sm mb-1">4년 새 고령운전자 비율 증가율</h3>
+            <div class="text-5xl font-black text-amber-600">45.6%</div>
+            <p class="text-xs text-gray-400 mt-2">2020년 14.8% → 2024년 21.6%</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 shadow-lg border-t-4 border-blue-600 text-center flex flex-col justify-center transform transition duration-300 hover:scale-105">
+            <div class="text-4xl mb-2">👥</div>
+            <h3 class="text-gray-500 font-semibold text-sm mb-1">2024년 현재 전체 운전자 대비 비중</h3>
+            <div class="text-5xl font-black text-blue-700">21.6%</div>
+            <p class="text-xs text-gray-400 mt-2">운전석 5곳 중 1곳 이상</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 shadow-lg border-t-4 border-teal-500 text-center flex flex-col justify-center transform transition duration-300 hover:scale-105">
+            <div class="text-4xl mb-2">👴</div>
+            <h3 class="text-gray-500 font-semibold text-sm mb-1">2024년 고령운전자 수</h3>
+            <div class="text-5xl font-black text-teal-600">4.2만명</div>
+            <p class="text-xs text-gray-400 mt-2">2020년 대비 1.1만 명 이상 증가</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+        
+        <div class="glass-card rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div class="bg-blue-900 text-white p-5">
+                <h2 class="text-2xl font-bold flex items-center"><span class="text-3xl mr-3">📉</span> 전체는 줄고, 고령층은 늘고</h2>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between">
+                <p class="text-gray-600 mb-6 font-medium">전체 운전자 수는 인구 감소 등의 영향으로 2020년 약 20.9만 명에서 2024년 19.6만 명으로 줄어들었습니다. 반면, 같은 기간 고령운전자는 3.1만 명에서 4.2만 명으로 오히려 급증하는 기형적 구조를 보입니다.</p>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+                <div class="mt-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                    <p class="text-sm text-blue-800 font-semibold text-center">💡 2023년을 기점으로 고령운전자 비율이 20%를 돌파하며 본격적인 초고령 운전 시대에 진입했습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div class="bg-teal-700 text-white p-5">
+                <h2 class="text-2xl font-bold flex items-center"><span class="text-3xl mr-3">📊</span> 2024년 도로 위 인구 구조</h2>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between">
+                <p class="text-gray-600 mb-6 font-medium">현재 도로 환경은 더 이상 과거의 기준에 머물러 있지 않습니다. 고령운전자의 비율이 20%를 넘어선 현 시점에서는 정책과 인프라도 이 비율에 맞게 새롭게 재편되어야 함을 시사합니다.</p>
+                <div class="chart-container">
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div class="mt-4 bg-teal-50 p-3 rounded-lg border border-teal-100">
+                    <p class="text-sm text-teal-800 font-semibold text-center">💡 전체 파이는 줄어들지만 특정 연령대의 점유율이 폭발적으로 높아지고 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="glass-card rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6 text-center">
+            <h2 class="text-3xl font-bold">이동권 보장 vs 안전 강화의 딜레마</h2>
+            <p class="text-gray-300 mt-2 font-light">단순한 면허 반납을 넘어선 근본적이고 다각적인 해결책이 필요합니다.</p>
+        </div>
+        
+        <div class="p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                
+                <div class="bg-red-50 border border-red-200 rounded-xl p-6 relative">
+                    <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-600 text-4xl p-2 rounded-full border-4 border-white shadow-sm">⚠️</div>
+                    <h3 class="text-xl font-bold text-red-800 text-center mt-6 mb-3">현재의 한계점</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">❌</span> <span class="text-gray-700"><strong>인지능력 저하:</strong> 돌발 상황 발생 시 반응 속도가 늦어 사고 위험 증가.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">❌</span> <span class="text-gray-700"><strong>반납의 현실적 어려움:</strong> 대중교통이 부족한 지방에서는 운전이 유일한 생계 및 이동 수단.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">❌</span> <span class="text-gray-700"><strong>저조한 참여율:</strong> 자진 반납 시 1회성 인센티브 제공만으로는 한계 봉착.</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 relative">
+                    <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-emerald-100 text-emerald-600 text-4xl p-2 rounded-full border-4 border-white shadow-sm">💡</div>
+                    <h3 class="text-xl font-bold text-emerald-800 text-center mt-6 mb-3">전문가 제언 및 해결 방향</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-emerald-500 mr-2 mt-1">✅</span> <span class="text-gray-700"><strong>첨단 장비 지원:</strong> 차량 내 첨단 운전자 보조 시스템(ADAS) 장착 적극 지원.</span></li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-2 mt-1">✅</span> <span class="text-gray-700"><strong>조건부 면허제:</strong> 야간, 고속도로 등 특정 위험 환경에서의 운전을 제한적으로 허용.</span></li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-2 mt-1">✅</span> <span class="text-gray-700"><strong>맞춤형 인프라:</strong> 수요응답형 버스(DRT) 등 고령자 맞춤 대체 이동 수단 대폭 확충.</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center p-6 bg-gray-50 rounded-xl border border-gray-200">
+                <div class="text-4xl mb-3">🛣️</div>
+                <p class="text-lg text-gray-800 font-bold">급증하는 고령운전자 추세에 맞춰 모두가 안전할 수 있는 정교한 교통안전망 설계가 그 어느 때보다 필요한 시점입니다.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const wrapLabel = (label, maxChars = 16) => {
+    const words = label.split(' ');
+    const lines = [];
+    let currentLine = '';
+    for (const word of words) {
+        if ((currentLine + word).length > maxChars) {
+            if (currentLine.trim() !== '') lines.push(currentLine.trim());
+            currentLine = word + ' ';
+        } else {
+            currentLine += word + ' ';
+        }
+    }
+    if (currentLine.trim() !== '') lines.push(currentLine.trim());
+    return lines.length > 0 ? lines : [label];
+};
+
+const commonTooltipConfig = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        }
+    }
+};
+
+const years = ['2020년', '2021년', '2022년', '2023년', '2024년'];
+const totalDrivers = [209654, 203130, 196836, 198296, 196349];
+const seniorDrivers = [31072, 31841, 34652, 39614, 42369];
+
+const wrappedYears = years.map(label => wrapLabel(label));
+
+const ctxTrend = document.getElementById('trendChart').getContext('2d');
+new Chart(ctxTrend, {
+    type: 'line',
+    data: {
+        labels: wrappedYears,
+        datasets: [
+            {
+                label: '고령운전자 수 (명)',
+                data: seniorDrivers,
+                type: 'line',
+                borderColor: '#D97706',
+                backgroundColor: '#D97706',
+                borderWidth: 4,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#D97706',
+                pointBorderWidth: 3,
+                pointRadius: 6,
+                tension: 0.3,
+                yAxisID: 'y1',
+                order: 1
+            },
+            {
+                label: '전체 운전자 수 (명)',
+                data: totalDrivers,
+                type: 'bar',
+                backgroundColor: 'rgba(30, 64, 175, 0.2)',
+                borderColor: 'rgba(30, 64, 175, 0.8)',
+                borderWidth: 1,
+                borderRadius: 4,
+                yAxisID: 'y',
+                order: 2
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+            legend: { position: 'top', labels: { font: { family: "'Noto Sans KR', sans-serif" } } },
+            tooltip: commonTooltipConfig
+        },
+        scales: {
+            x: { grid: { display: false }, ticks: { font: { family: "'Noto Sans KR', sans-serif" } } },
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: { display: true, text: '전체 운전자 수', font: { family: "'Noto Sans KR', sans-serif" } },
+                grid: { color: 'rgba(0,0,0,0.05)' }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: { display: true, text: '고령운전자 수', font: { family: "'Noto Sans KR', sans-serif" } },
+                grid: { drawOnChartArea: false }
+            }
+        }
+    }
+});
+
+const wrappedDonutLabels = [wrapLabel('65세 이상 고령운전자'), wrapLabel('65세 미만 일반운전자')];
+
+const ctxDonut = document.getElementById('donutChart').getContext('2d');
+new Chart(ctxDonut, {
+    type: 'doughnut',
+    data: {
+        labels: wrappedDonutLabels,
+        datasets: [{
+            data: [42369, 196349 - 42369],
+            backgroundColor: ['#0D9488', '#E2E8F0'],
+            hoverBackgroundColor: ['#0F766E', '#CBD5E1'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+            legend: { position: 'bottom', labels: { padding: 20, font: { family: "'Noto Sans KR', sans-serif", size: 14 } } },
+            tooltip: commonTooltipConfig
+        }
+    },
+    plugins: [{
+        id: 'centerText',
+        beforeDraw: function(chart) {
+            var width = chart.width, height = chart.height, ctx = chart.ctx;
+            ctx.restore();
+            var fontSize = (height / 120).toFixed(2);
+            ctx.font = "900 " + fontSize + "em 'Noto Sans KR', sans-serif";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = "#0D9488";
+            var text = "21.6%", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2.2;
+            ctx.fillText(text, textX, textY);
+            
+            var subFontSize = (height / 250).toFixed(2);
+            ctx.font = "500 " + subFontSize + "em 'Noto Sans KR', sans-serif";
+            ctx.fillStyle = "#64748B";
+            var subText = "고령운전자 점유율", subTextX = Math.round((width - ctx.measureText(subText).width) / 2), subTextY = height / 2.2 + (height * 0.12);
+            ctx.fillText(subText, subTextX, subTextY);
+            ctx.save();
+        }
+    }]
+});
+</script>
+</body>
+</html>
