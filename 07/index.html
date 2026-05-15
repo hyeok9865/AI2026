@@ -49,7 +49,8 @@
             </p>
             <div class="flex flex-col md:flex-row gap-4 justify-center">
                 <button onclick="document.getElementById('city').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-white text-blue-600 rounded-full font-bold text-lg hover:scale-105 transition">투어 시작하기</button>
-                <button class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transition">계획서 다운로드</button>
+                <!-- 다운로드 버튼 수정: 이름 변경 및 PDF 경로 연결 -->
+                <a href="../pdf_data/부산 관광 콘텐츠 기획서.pdf" download class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transition inline-block">상세 기획서 다운로드</a>
             </div>
         </div>
         <div class="absolute bottom-10 animate-bounce">
@@ -159,7 +160,6 @@
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <!-- Placeholder for Boogi Character Image -->
                 <div class="w-64 h-64 bg-white/20 rounded-full flex items-center justify-center border-8 border-white/10 animate-pulse text-center p-4">
                     <p class="font-black text-xl italic">부기(BOOGI) 캐릭터<br>이미지 영역</p>
                 </div>
@@ -183,7 +183,6 @@
     </footer>
 
     <script>
-        // Simple Interaction logic
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
@@ -193,7 +192,6 @@
             }
         });
 
-        // Intersection Observer for scroll animations
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
