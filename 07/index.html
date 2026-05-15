@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Real Busan Rhythm - 부산 관광 콘텐츠</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.12.16/framer-motion.umd.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .scroll-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+        .bg-busan {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1570191913384-7b3f27663391?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover { transform: translateY(-10px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="text-2xl font-black text-blue-600">BUSAN <span class="text-pink-500">RHYTHM</span></div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#city" class="hover:text-blue-600">City</a>
+                <a href="#ocean" class="hover:text-blue-600">Ocean</a>
+                <a href="#taste" class="hover:text-blue-600">Taste</a>
+                <a href="#boogi" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700">Meet Boogi</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-busan text-white text-center">
+        <div class="z-10 px-4">
+            <h1 class="text-5xl md:text-8xl font-black mb-6 tracking-tighter">The Real <span class="gradient-text">Busan Rhythm</span></h1>
+            <p class="text-xl md:text-2xl font-light mb-10 max-w-2xl mx-auto">
+                해운대 너머, 진짜 부산의 심장소리를 느껴보세요.<br>로컬 청년들의 에너지와 푸른 바다가 만나는 특별한 리듬.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button onclick="document.getElementById('city').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-white text-blue-600 rounded-full font-bold text-lg hover:scale-105 transition">투어 시작하기</button>
+                <button class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transition">계획서 다운로드</button>
+            </div>
+        </div>
+        <div class="absolute bottom-10 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-3xl"></i>
+        </div>
+    </header>
+
+    <!-- Theme 1: City Rhythm -->
+    <section id="city" class="scroll-section bg-white">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <span class="text-blue-600 font-bold tracking-widest uppercase">Theme 01</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-2 mb-6">City Rhythm:<br><span class="text-blue-500">서면 & 전리단길</span></h2>
+                <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                    관광객용 부산이 아닙니다. 전국 유동인구 1위, 부산 청년들의 진짜 에너지가 모이는 서면역과 전리단길의 감성을 만끽하세요. 개성 있는 소품샵과 카페 홉핑이 당신을 기다립니다.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 p-3 rounded-lg"><i class="fa-solid fa-mug-hot text-blue-600"></i></div>
+                        <div>
+                            <h4 class="font-bold">전리단길 커피 홉핑</h4>
+                            <p class="text-sm text-gray-500">낡은 공구 거리에서 탄생한 힙한 카페들의 향연</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 p-3 rounded-lg"><i class="fa-solid fa-comments text-blue-600"></i></div>
+                        <div>
+                            <h4 class="font-bold">사투리 원데이 클래스</h4>
+                            <p class="text-sm text-gray-500">"살아있네!" 진짜 부산 말을 배우는 로컬 미션</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 rounded-3xl overflow-hidden shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1624225243815-90040775d7f3?auto=format&fit=crop&q=80&w=1000" alt="Busan Cityscape" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme 2: Ocean Rhythm -->
+    <section id="ocean" class="scroll-section bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-500/30">
+                <img src="https://images.unsplash.com/photo-1594911776510-4f5146f3630f?auto=format&fit=crop&q=80&w=1000" alt="Gwangalli Bridge" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <span class="text-pink-500 font-bold tracking-widest uppercase">Theme 02</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-2 mb-6">Ocean Rhythm:<br><span class="text-pink-400">어반 비치 나이트</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                    24시간 잠들지 않는 바다. 백사장 바로 뒤에 펼쳐진 화려한 번화가. 광안대교의 야경을 안주 삼아 로컬 청년들과 어우러지는 수변공원 맥주 타임을 즐기세요.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/10 p-6 rounded-2xl text-center card-hover">
+                        <h4 class="text-2xl font-bold">광안리</h4>
+                        <p class="text-xs text-gray-400 mt-2">로컬 & 관광객 5:5 비율</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl text-center card-hover">
+                        <h4 class="text-2xl font-bold">해운대</h4>
+                        <p class="text-xs text-gray-400 mt-2">유니크한 스카이라인 워크</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme 3: Taste Rhythm -->
+    <section id="taste" class="scroll-section bg-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="text-orange-500 font-bold tracking-widest uppercase">Theme 03</span>
+            <h2 class="text-4xl md:text-5xl font-black mt-2 mb-12">Taste Rhythm: <span class="text-orange-500">커스텀 미식</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-3xl bg-orange-50 border border-orange-100 card-hover">
+                    <div class="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">돼지국밥 커스텀</h3>
+                    <p class="text-gray-600 text-sm">부추와 다대기, 새우젓으로 완성하는 나만의 국밥 레시피 영상 챌린지</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 card-hover">
+                    <div class="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">시장 도장깨기</h3>
+                    <p class="text-gray-600 text-sm">비빔당면, 씨앗호떡, 어묵까지! 국제시장의 정취를 한입에</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-pink-50 border border-pink-100 card-hover">
+                    <div class="w-16 h-16 bg-pink-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">정가 보장 투어</h3>
+                    <p class="text-gray-600 text-sm">바가지 걱정 없는 '착한 가격 디지털 지도'로 즐기는 신선한 해산물</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Ambassador Section (Boogi) -->
+    <section id="boogi" class="py-24 bg-blue-600 text-white overflow-hidden relative">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h2 class="text-4xl md:text-6xl font-black mb-6">Hello, I'm <span class="text-yellow-300">BOOGI!</span></h2>
+                <p class="text-xl mb-8 opacity-90">대만에서도 인기 폭발! 부산의 귀요미 앰배서더 부기가 제안하는 로컬 핫플레이스 투어에 함께하세요.</p>
+                <div class="flex gap-4">
+                    <button class="px-8 py-4 bg-yellow-400 text-blue-900 rounded-full font-bold hover:bg-yellow-300 transition">부기와 대화하기</button>
+                    <button class="px-8 py-4 bg-white/20 text-white rounded-full font-bold hover:bg-white/30 transition">인스타 팔로우</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <!-- Placeholder for Boogi Character Image -->
+                <div class="w-64 h-64 bg-white/20 rounded-full flex items-center justify-center border-8 border-white/10 animate-pulse text-center p-4">
+                    <p class="font-black text-xl italic">부기(BOOGI) 캐릭터<br>이미지 영역</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-12 border-t">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <div class="text-2xl font-black text-blue-600 mb-4">BUSAN <span class="text-pink-500">RHYTHM</span></div>
+            <p class="mb-6">이 기획은 유튜브 '크랩 KLAB' 영상과 로컬 댓글 분석을 기반으로 제작되었습니다.</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-blue-600"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+                <a href="#" class="hover:text-blue-600"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-blue-600"><i class="fa-brands fa-youtube text-xl"></i></a>
+            </div>
+            <p>&copy; 2024 Busan Tourism Activation Strategy. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Interaction logic
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
