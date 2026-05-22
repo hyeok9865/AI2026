@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>외국인 관광객 1조 시대 - 부산 관광 상생 인포그래픽</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        busanBlue: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0066cc',
+                            600: '#0052a3',
+                            700: '#003d7a',
+                            900: '#0a1d37',
+                        },
+                        busanTeal: {
+                            500: '#00a896',
+                            600: '#028090',
+                        },
+                        busanOrange: {
+                            50: '#fff7ed',
+                            500: '#ff6b35',
+                            600: '#e0531f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark-glass-panel {
+            background: rgba(10, 29, 55, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col scroll-smooth">
+
+    <!-- Header Section -->
+    <header class="dark-glass-panel text-white sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-busanOrange-500 text-white p-2.5 rounded-xl shadow-lg shadow-busanOrange-500/30">
+                    <i class="fa-solid fa-anchor text-xl animate-bounce"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-widest text-busanOrange-500">Busan Special Tourism Report</span>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        지속 가능한 부산 관광 인터랙티브 대시보드
+                    </h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs bg-emerald-500/20 text-emerald-400 font-medium px-3 py-1.5 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span> 정책 시뮬레이터 활성화됨
+                </span>
+                <button onclick="window.print()" class="text-xs bg-white/10 hover:bg-white/20 text-white font-medium px-4 py-2 rounded-lg border border-white/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> 보고서 인쇄
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full space-y-8">
+        
+        <!-- Hero Introduction with Adjusted Typography -->
+        <div class="rounded-3xl bg-gradient-to-br from-busanBlue-900 via-busanBlue-700 to-busanTeal-600 p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none translate-x-12 translate-y-12">
+                <i class="fa-solid fa-ship text-[300px]"></i>
+            </div>
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">상생과 공존의 미래 정책</span>
+                <h2 class="text-2xl md:text-4xl font-black leading-snug">
+                    외국인 지출 <span class="text-busanOrange-500 underline decoration-wavy">1조 원</span> 돌파,<br>
+                    부산 관광이 마주한 양면의 과제
+                </h2>
+                <p class="text-base md:text-lg text-slate-200 leading-relaxed font-light">
+                    부산광역시는 사상 최초 외국인 관광객 300만 돌파, 지출액 전국 2위 달성이라는 화려한 성적표를 거두었습니다. 하지만 이면의 지역 불균형, 교통 마비, 물가 폭등 등 '오버투어리즘'의 부작용을 예방하기 위해 시민과 함께 그 해법을 모색합니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4 Major Key Metrics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="glass-panel p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-busanBlue-500 flex items-start gap-4">
+                <div class="bg-busanBlue-50 text-busanBlue-500 p-4 rounded-xl">
+                    <i class="fa-solid fa-users text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-slate-500">외국인 관광객</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mt-1">300만 명 +</h3>
+                    <p class="text-xs text-slate-400 mt-2">사상 최초 300만 돌파 기록</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-busanTeal-600 flex items-start gap-4">
+                <div class="bg-emerald-50 text-emerald-600 p-4 rounded-xl">
+                    <i class="fa-solid fa-coins text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-slate-500">연간 소비 지출액</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mt-1">1조 원 돌파</h3>
+                    <p class="text-xs text-emerald-600 font-bold mt-2"><i class="fa-solid fa-arrow-trend-up"></i> 전년 대비 32.4% 증가</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-busanOrange-500 flex items-start gap-4">
+                <div class="bg-busanOrange-50 text-busanOrange-500 p-4 rounded-xl">
+                    <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-slate-500">특정 거점 소비율</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mt-1">53.0 %</h3>
+                    <p class="text-xs text-busanOrange-500 font-medium mt-2">해운대·서면에 과반 밀집</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 border-purple-500 flex items-start gap-4">
+                <div class="bg-purple-50 text-purple-600 p-4 rounded-xl">
+                    <i class="fa-solid fa-briefcase text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-slate-500">글로벌 워케이션</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mt-1">전국 3위</h3>
+                    <p class="text-xs text-slate-400 mt-2">체류형 장기 관광 정착 단계</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Interactive Section: Media Frame vs Citizen Sentiment -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-5 flex flex-col justify-between glass-panel p-8 rounded-3xl shadow-sm bg-gradient-to-br from-white to-slate-50/50">
+                <div class="space-y-6">
+                    <div class="inline-flex bg-busanOrange-50 text-busanOrange-500 text-xs font-bold px-3 py-1 rounded-full">상생의 핵심 단서</div>
+                    <h3 class="text-2xl font-black text-slate-900">미디어와 여론의<br>뜨거운 온도 차 (Gap)</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        공식 뉴스 미디어가 지표의 화려한 성장과 거시적인 정책 우려를 다룰 때, 부산 시민들은 일상의 붕괴, 즉 미시적인 현실 피해와 장기적인 로컬 파괴에 초점을 맞춤으로써 뚜렷한 가치적 괴리를 표현합니다.
+                    </p>
+                </div>
+                
+                <!-- Interactive Comparison Toggle (No-wrap applied perfectly) -->
+                <div class="mt-8 space-y-4">
+                    <div class="p-4 rounded-2xl bg-white border border-slate-100 flex justify-between items-center hover:shadow-sm transition gap-2 overflow-x-auto">
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="bg-blue-100 text-blue-700 font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">미디어</span>
+                            <span class="text-xs md:text-sm font-bold text-slate-800">지출액 1조 돌파 성과</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-arrow-left text-slate-300 shrink-0"></i>
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="text-xs md:text-sm font-bold text-slate-800 text-right">바가지 및 실물 물가 우려</span>
+                            <span class="bg-busanOrange-500 text-white font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">여론</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-2xl bg-white border border-slate-100 flex justify-between items-center hover:shadow-sm transition gap-2 overflow-x-auto">
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="bg-blue-100 text-blue-700 font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">미디어</span>
+                            <span class="text-xs md:text-sm font-bold text-slate-800">도시 쏠림 분석</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-arrow-left text-slate-300 shrink-0"></i>
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="text-xs md:text-sm font-bold text-slate-800 text-right">지하철 혼잡, 교통 마비</span>
+                            <span class="bg-busanOrange-500 text-white font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">여론</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-100 flex justify-between items-center hover:shadow-sm transition gap-2 overflow-x-auto">
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="bg-blue-100 text-blue-700 font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">미디어</span>
+                            <span class="text-xs md:text-sm font-bold text-slate-800">전통시장 맛집 부활</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-arrow-left text-slate-300 shrink-0"></i>
+                        <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                            <span class="text-xs md:text-sm font-bold text-slate-800 text-right">상권 획일화, 젠트리피케이션</span>
+                            <span class="bg-busanOrange-500 text-white font-bold text-[10px] md:text-xs p-1.5 md:p-2 rounded-lg shrink-0">여론</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8 Citizen Opinion Categories -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-busanOrange-500"></i> 시민들의 실제 8대 여론 동향
+                    </h4>
+                    <span class="text-xs text-slate-400">카드를 눌러 여론의 생생한 속사정을 확인해 보세요</span>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4" id="opinion-grid">
+                    
+                    <!-- Topic 1 -->
+                    <button onclick="showOpinion(1)" id="op-btn-1" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full w-max relative z-10">긍정 여론</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">① 경제효과</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">제조업 없는 부산에 기여</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 2 -->
+                    <button onclick="showOpinion(2)" id="op-btn-2" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full w-max relative z-10">긍정 여론</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">② 지역 자부심</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">부산 고유 문화의 매력</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 3 -->
+                    <button onclick="showOpinion(3)" id="op-btn-3" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-car-tunnel"></i>
+                        </div>
+                        <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full w-max relative z-10">우려 여론</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">③ 교통 문제</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">해운대·광안리 정체 극심</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 4 -->
+                    <button onclick="showOpinion(4)" id="op-btn-4" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full w-max relative z-10">우려 여론</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">④ 숙박·물가</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">가성비 유지 우려</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 5 -->
+                    <button onclick="showOpinion(5)" id="op-btn-5" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-map-pin"></i>
+                        </div>
+                        <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full w-max relative z-10">우려 여론</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">⑤ 관광객 쏠림</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">동서 균형 발전 지적</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 6 -->
+                    <button onclick="showOpinion(6)" id="op-btn-6" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-earth-asia"></i>
+                        </div>
+                        <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full w-max relative z-10">중립 인식</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">⑥ 외국인 인식</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">한국 생활문화 소비 유행</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 7 -->
+                    <button onclick="showOpinion(7)" id="op-btn-7" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <span class="text-xs font-bold text-busanBlue-500 bg-busanBlue-50 px-2.5 py-1 rounded-full w-max relative z-10">대안 제안</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">⑦ 정책 제안</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">스마트 인프라 고도화 요구</p>
+                        </div>
+                    </button>
+
+                    <!-- Topic 8 -->
+                    <button onclick="showOpinion(8)" id="op-btn-8" class="p-4 rounded-2xl bg-white border border-slate-200 hover:border-busanOrange-500 hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between h-36 relative overflow-hidden group">
+                        <div class="absolute right-2 top-2 text-slate-100 group-hover:text-busanOrange-50/50 text-5xl transition-colors">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                        <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full w-max relative z-10">기타 반응</span>
+                        <div class="relative z-10 mt-auto">
+                            <h5 class="font-extrabold text-slate-800 text-sm">⑧ 기타 피드백</h5>
+                            <p class="text-[11px] text-slate-400 mt-1 truncate">가벼운 감상 및 타 지역 반응</p>
+                        </div>
+                    </button>
+
+                </div>
+
+                <!-- Live Detail Display Pane -->
+                <div id="detail-pane" class="bg-gradient-to-br from-busanBlue-900 to-busanBlue-700 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden min-h-48 flex flex-col justify-between">
+                    <div class="absolute right-4 bottom-4 text-white/5 pointer-events-none">
+                        <i id="detail-watermark" class="fa-solid fa-quote-left text-[120px]"></i>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
+                            <h4 id="detail-title" class="font-black text-lg tracking-wide text-busanOrange-500">
+                                💡 여론 세부 분석을 위해 위의 카드를 클릭해 주세요.
+                            </h4>
+                            <span id="detail-tag" class="text-xs bg-white/20 text-white px-2.5 py-1 rounded-full">여론 모니터링</span>
+                        </div>
+                        <p id="detail-desc" class="text-sm text-slate-200 leading-relaxed font-light">
+                            각 카테고리를 클릭하면 공식 통계와 보도가 미처 다루지 못한 실제 시민 여론 및 걱정 어린 목소리의 핵심을 비교 분석하여 볼 수 있습니다.
+                        </p>
+                    </div>
+                    <div id="detail-quote-container" class="mt-6 p-4 rounded-2xl bg-white/5 border border-white/10 hidden">
+                        <span class="text-[10px] text-busanOrange-500 font-bold tracking-widest uppercase block mb-1">시민의 가상 시그널 반응</span>
+                        <p id="detail-quote" class="text-xs text-white italic">
+                            "여기에 가상 인터뷰 또는 생생한 시민들의 한 줄 의견이 표시됩니다."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Section: 4 Strategic Policy Pillars -->
+        <div class="space-y-6 pt-4">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <span class="text-busanOrange-500 font-bold text-xs tracking-wider uppercase">Future Solution</span>
+                <h3 class="text-2xl md:text-3xl font-black text-slate-900">지속 가능한 부산 관광 4대 전략</h3>
+                <p class="text-xs md:text-sm text-slate-500">
+                    성과에만 기대지 않고 상생 공존을 위해 즉시 시정에 도입 가능한 4가지 중심적 시큐어링 정책을 도식화했습니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Pillar 1 -->
+                <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-lg transition-all duration-300 relative group">
+                    <div class="h-12 w-12 bg-busanOrange-50 text-busanOrange-500 flex items-center justify-center rounded-2xl text-xl font-bold group-hover:scale-110 transition">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-slate-900">전략 1. 신뢰 중심의 물가: '부산 안심 마크' 도입</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        관광지 바가지 가격 문제를 원천 방지하기 위해 정찰제 준수 상인에게 국가 공식 인증 및 세제 혜택을 부여합니다. 상시 가성비 보존을 위한 기습 암행어사 시민 감사단 운영이 병행됩니다.
+                    </p>
+                    <ul class="text-xs space-y-2 text-slate-600 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> '부산 안심 마크' 공식 인증 식당·상점 확대</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 시민 단체 연계 소비자 권리 기습 단속 제도</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-lg transition-all duration-300 relative group">
+                    <div class="h-12 w-12 bg-busanBlue-50 text-busanBlue-500 flex items-center justify-center rounded-2xl text-xl font-bold group-hover:scale-110 transition">
+                        <i class="fa-solid fa-bus-simple"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-slate-900">전략 2. 교통 공존 혁신: '캐리어-프리 부산' 구축</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        공항/부산역에서 숙소까지 위탁 수하물을 직접 다이렉트 연계 운송하여 출퇴근하는 대중교통 내 대형 캐리어 혼잡을 완전히 배제하고, 외국인 관광객 전용 자율 DRT 셔틀버스를 증편합니다.
+                    </p>
+                    <ul class="text-xs space-y-2 text-slate-600 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 부산역 - 숙소 다이렉트 짐 수하물 위탁 대폭 보조</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 주말 핫플레이스(광안리, 구남로 등) 대중교통 전용지구</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-lg transition-all duration-300 relative group">
+                    <div class="h-12 w-12 bg-emerald-50 text-emerald-600 flex items-center justify-center rounded-2xl text-xl font-bold group-hover:scale-110 transition">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-slate-900">전략 3. 서부산 스마트 리포지셔닝: 'Nature & Eco'</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        해운대, 광안리 편중(53%)을 막고 사하 다대포 해변, 을숙도의 수려한 생태 경관을 활용하여 '에코 투어 및 야생조류 탐방', 그리고 장기 체류형 디지털 노마드를 위한 대형 워케이션 지대를 마련합니다.
+                    </p>
+                    <ul class="text-xs space-y-2 text-slate-600 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 낙동강 낙조 탐방선 및 다대포 해양 스포츠 패키지</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 사하·강서 글로벌 워케이션 센터 전진 기지화</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-lg transition-all duration-300 relative group">
+                    <div class="h-12 w-12 bg-purple-50 text-purple-600 flex items-center justify-center rounded-2xl text-xl font-bold group-hover:scale-110 transition">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-slate-900">전략 4. 지능형 서비스: 실시간 혼잡도 안내</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        전통시장 내 알리페이, 간편 QR결제 등 다국어 표준 인프라 구축은 물론, 빅데이터를 기반으로 현재 과밀화된 명소의 실시간 동선 상태를 안내하여 외국인들이 스스로 분산(Nudge)되게 합니다.
+                    </p>
+                    <ul class="text-xs space-y-2 text-slate-600 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 모바일 웹 혼잡도 신호등 표시 서비스</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 소외 지역 다국어 키오스크 보급률 확대 지원</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dynamic Policy Simulator Section -->
+        <div class="glass-panel p-8 rounded-3xl shadow-lg border border-busanBlue-100 bg-gradient-to-br from-white via-slate-50 to-blue-50/20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-xs font-bold bg-busanBlue-100 text-busanBlue-600 px-3 py-1 rounded-full uppercase tracking-widest">Interactive Widget</span>
+                    <h3 class="text-2xl font-black text-slate-900">부산 관광 정책 시뮬레이터</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        부산시 정책 입안자의 입장에서 정책을 활성화해 보세요. 각 정책들이 실행됨에 따라 <strong>시민 만족도, 관광객 지출 효과, 지역 균형 지표</strong>가 실시간으로 변동되는 가상 연산 시각화 모델입니다.
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-2xl text-xs space-y-1 text-slate-500">
+                        <p class="font-bold text-slate-700">시뮬레이터 목표:</p>
+                        <p>세 지표 모두 균형 있게 <span class="text-busanOrange-500 font-bold">80점 이상</span> 달성하는 최고의 골든 룰 정책 조합을 찾아보세요!</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    
+                    <!-- Interactive Switches -->
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider mb-2">정책 적용 여부 선택</h4>
+                        
+                        <!-- Policy Toggle 1 -->
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-busanOrange-500"></i> 안심 마크 정찰제
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="policy-price" onchange="calculateSimulator()" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-busanOrange-500"></div>
+                            </label>
+                        </div>
+
+                        <!-- Policy Toggle 2 -->
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-bus-simple text-busanBlue-500"></i> 캐리어 프리 운송
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="policy-luggage" onchange="calculateSimulator()" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-busanBlue-500"></div>
+                            </label>
+                        </div>
+
+                        <!-- Policy Toggle 3 -->
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-seedling text-emerald-600"></i> 서부산 에코투어 개발
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="policy-eco" onchange="calculateSimulator()" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                            </label>
+                        </div>
+
+                        <!-- Policy Toggle 4 -->
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-network-wired text-purple-600"></i> 실시간 혼잡 넛지(Nudge)
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="policy-nudge" onchange="calculateSimulator()" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <!-- Simulator Results Visual Graph Bars -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <h4 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider">실시간 연동 정책 성과</h4>
+                        
+                        <!-- Bar 1 -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-600"><i class="fa-solid fa-house-chimney-user mr-1 text-slate-400"></i> 주민 행복도</span>
+                                <span id="bar-citizen-val" class="text-slate-900">55점</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div id="bar-citizen" class="bg-busanOrange-500 h-full rounded-full transition-all duration-500" style="width: 55%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2 -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-600"><i class="fa-solid fa-plane-arrival mr-1 text-slate-400"></i> 관광객 만족도</span>
+                                <span id="bar-tourist-val" class="text-slate-900">70점</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div id="bar-tourist" class="bg-busanBlue-500 h-full rounded-full transition-all duration-500" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 3 -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-600"><i class="fa-solid fa-arrows-split-up-and-left mr-1 text-slate-400"></i> 서부산 균형 성장</span>
+                                <span id="bar-balance-val" class="text-slate-900">40점</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div id="bar-balance" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 40%"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 text-center border-t border-slate-50">
+                            <span id="simulator-verdict" class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                                정책이 조율 중입니다...
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- NEW CARD: MZ Generation Cool & Realistic Tactics -->
+        <div class="glass-panel p-8 rounded-3xl shadow-xl border border-rose-100 bg-gradient-to-br from-white via-rose-50/10 to-busanOrange-50/20 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <span class="text-xs font-bold bg-rose-100 text-rose-600 px-3 py-1 rounded-full uppercase tracking-wider">MZ Generation Idea</span>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-black bg-gradient-to-r from-amber-500 to-rose-600 text-white px-3 py-1 rounded-full uppercase tracking-wider shadow-md shadow-rose-500/20 border border-amber-300 animate-pulse">
+                            <i class="fa-solid fa-brain text-[10px]"></i> MY THINK
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900 mt-2 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-busanOrange-500 animate-pulse"></i> MZ세대가 제안하는 '힙(Hip)'하고 디테일한 공존 솔루션
+                    </h3>
+                </div>
+                <p class="text-xs text-slate-400 md:text-right max-w-sm">
+                    행정 위주의 딱딱한 규제 대신, 재미(Fun)와 공공 가치(Value)를 동시에 소비하고 자발적으로 확산시키는 MZ 타겟 맞춤형 시책 제안입니다.
+                </p>
+            </div>
+
+            <!-- 3 Columns of Actionable MZ Solutions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 hover:border-rose-400 transition-all duration-300 shadow-sm flex flex-col justify-between h-full group">
+                    <div class="space-y-4">
+                        <div class="h-10 w-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">
+                            <i class="fa-solid fa-camera-retro"></i>
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 whitespace-nowrap text-[13px] sm:text-sm md:text-xs lg:text-sm xl:text-base">① 서부산 빈집 '로컬 힙스터 팝업' 프로젝트</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            사하, 영도 등 인구 소멸 지역의 빈집이나 버려진 폐공장을 부산 로컬 아티스트들과 협업해 인스타 감성의 팝업 스토어로 개조합니다. 희소성 있는 '숏폼 촬영 명소'로 브랜딩하여 자연스러운 동선 분산을 유도합니다.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-rose-500">
+                        <span>#인스타성지 #힙한공동화해결</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 hover:border-rose-400 transition-all duration-300 shadow-sm flex flex-col justify-between h-full group">
+                    <div class="space-y-4">
+                        <div class="h-10 w-10 bg-orange-50 text-busanOrange-500 rounded-xl flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 whitespace-nowrap text-[13px] sm:text-sm md:text-xs lg:text-sm xl:text-base">② '안심 내돈내산 챌린지' 모바일 인증</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            전통시장에서 영수증과 가격표가 매칭된 사진을 SNS나 지정 플랫폼에 '내돈내산 챌린지' 해시태그와 함께 인증하면 모바일 스탬프를 적립해 줍니다. 획득한 스탬프는 부산의 인기 캐릭터 '부기'의 희귀 굿즈로 교환합니다.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-busanOrange-500">
+                        <span>#영수증인증 #정찰제감시효과</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 hover:border-rose-400 transition-all duration-300 shadow-sm flex flex-col justify-between h-full group">
+                    <div class="space-y-4">
+                        <div class="h-10 w-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 whitespace-nowrap text-[13px] sm:text-sm md:text-xs lg:text-sm xl:text-base">③ 친환경 웰컴 '오션 플로깅 트립'</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            광안리나 다대포에 '플로깅 하우스'를 마련하여 관광객에게 감성적인 힙백과 친환경 쓰레기봉투를 무상 대여합니다. 해변 플로깅 참여 시 '비짓 부산 패스' 할인 혜택을 연계해 보람과 실리를 공유하는 친환경 여행 문화를 안착시킵니다.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-emerald-600">
+                        <span>#환경지킴이 #가치소비문화</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer with Summary -->
+    <footer class="bg-slate-900 text-white mt-12 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex justify-center items-center gap-2 text-busanOrange-500 text-xl font-extrabold">
+                <i class="fa-solid fa-anchor"></i> BUSAN CITY
+            </div>
+            <p class="text-xs text-slate-400 max-w-xl mx-auto leading-relaxed">
+                부산광역시 문화체육관광국 및 관련 정책 자문단을 위해 실시간 여론 동향을 토대로 작성된 인터랙티브 시각화 시트입니다. 주민과 관광객의 행복한 미래 공존을 제안합니다.
+            </p>
+            <p class="text-[10px] text-slate-500 font-mono">
+                Copyright © 2026 Busan Metropolitan City. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Opinion data mapping for interactive exploration
+        const opinions = {
+            1: {
+                title: "① 경제효과 (Positive)",
+                desc: "부산 내 제조업 및 강력한 대기업 비중이 부족한 특수한 경제 환경상, 가볍고 파급력이 강한 외국인 유입 자금력은 소상공인과 지역 골목 상권을 전격 부활시키는 실질적 마중물이라고 크게 긍정 환대함.",
+                quote: "마산, 울산에 비해 공장 유치가 아쉬운 부산 상황에 외국인들이 와서 매년 몇 조씩 뿌려준다니 이거야말로 효자 산업이지요. 환율 효과 타고 골목가도 사네!",
+                tag: "경제 유입"
+            },
+            2: {
+                title: "② 지역 자부심 (Positive)",
+                desc: "더 이상 한국 방문의 입구가 수도 서울 한 곳이 아닌, 부기 캐릭터와 정통 미식, 전용 이불 시장 등 자신들 고유의 정서가 세계 아시아 관광인에게 사랑받고 통한다는 사실에 강한 지역 자긍심을 내비침.",
+                quote: "대만에서 부산 갈매기 캐릭터 팬미팅을 연다는 게 실화입니까? 국밥에 부기 인형 쇼핑까지... 진짜 로컬만이 해낼 수 있는 멋진 콘텐츠입니다.",
+                tag: "자부심 고취"
+            },
+            3: {
+                title: "③ 교통 문제 (Negative)",
+                desc: "주말마다 해운대와 광안리, 영도, 서면 일대에 차량 혼잡이 고질적으로 누적되며 원주민들의 고단한 일상과 출퇴근 편의가 박탈된다는 현실 체증 한탄이 압도적인 주류를 이룸.",
+                quote: "금요일 오후 퇴근할 때 버스 탔다가 차 밀려서 쓰러지는 줄 알았습니다. 지하철에도 거대한 이민용 캐리어들이 통로를 가득 메워 주민들은 정작 밀려납니다.",
+                tag: "교통 마비"
+            },
+            4: {
+                title: "④ 숙박·물가 (Negative)",
+                desc: "조금이라도 인기를 끌면 눈앞의 단기 이익에 눈이 멀어 폭등하는 바가지 숙박비와 전통시장 명물들의 꼼수 상차림 가격 등을 경계함. 제2의 유명 시장 논란이 터지면 한순간에 전원 외면할 것이라 강력 경고.",
+                quote: "가성비 소문나서 전통시장 갔다가, 떡갈비 몇 개에 돈 뻥튀기하는 일부 비양심 상인들 보면 정 다 떨어져요. 부산시 차원에서 가격 강력 통제 안 하면 결국 망합니다.",
+                tag: "물가 모니터링"
+            },
+            5: {
+                title: "⑤ 관광객 쏠림 (Negative)",
+                desc: "서면과 해운대에 쏠린 53%의 결제 비중에 대해 시 단위의 편향된 랜드마크 개발 정책을 비판함. 영도, 다대포, 을숙도 등 소외된 서부산권 인프라와의 극심한 격차 극복 요구가 끊임없음.",
+                quote: "맨날 광안대교랑 해운대 모래사장만 보여주고 가꾸니까 그렇죠. 서부산의 탁 트인 자연과 사하구 다대포 석양이 백 배는 더 이국적인데 마케팅 좀 분산해 주길.",
+                tag: "지역 균형"
+            },
+            6: {
+                title: "⑥ 외국인 인식 (Neutral)",
+                desc: "단순히 성을 방문해 사진만 찍는 것이 아니라, 부산 돼지국밥에 밥을 말아 먹고 한국 극세사 이불을 보따리 가득 안고 가는 생활 밀착형 체류 흐름을 보며 환대와 신기함의 감정이 공존함.",
+                quote: "타이완 사람들이 우리 부모님 세자가 좋아하는 두꺼운 극세사 이불을 수십 채씩 사 가는 게 너무 신기하고 웃겨요. 글로벌 트렌드는 참 예측이 안 가네요.",
+                tag: "외국인 트렌드"
+            },
+            7: {
+                title: "⑦ 정책 제안 (Insight)",
+                desc: "현재 출시된 비짓 부산 패스의 우수성을 지속 보완하고, 다국어 인프라 확충, 스마트 디지털 결제 존 형성, 특히 장기 체류 비자 및 거주를 연계해 부산 인구 절벽 현상의 보완책으로 활용해야 한다는 의견 개진.",
+                quote: "비짓 부산 패스를 서부산 전용 패스로도 커스텀해서 발행해 주면 효과가 극대화될 텐데... 그리고 주요 버스 정류장 전광판에도 다국어 서비스 정밀화가 필수적입니다.",
+                tag: "시정 대안"
+            },
+            8: {
+                title: "⑧ 기타 (General)",
+                desc: "가볍게 주말 나들이용 기획 코스를 질문하는 타지 관광객들과 단순 재미 반응이 포함됨. 부산의 미식이나 야경의 가치에 대한 일반 네티즌들의 동경이 상존함.",
+                quote: "영상 보니까 이번 휴가에 강원도 대신 꼭 부산 전통시장과 국밥집 투어를 하러 가야겠다고 결심했습니다. 기사 유익하네요.",
+                tag: "일반 감상"
+            }
+        };
+
+        // Active ID tracking
+        let currentActiveOp = null;
+
+        function showOpinion(id) {
+            const data = opinions[id];
+            
+            // UI Button Active visual highlight toggle
+            if (currentActiveOp) {
+                document.getElementById(`op-btn-${currentActiveOp}`).classList.remove('border-busanOrange-500', 'ring-2', 'ring-busanOrange-500/20');
+            }
+            document.getElementById(`op-btn-${id}`).classList.add('border-busanOrange-500', 'ring-2', 'ring-busanOrange-500/20');
+            currentActiveOp = id;
+
+            // Content update logic
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-desc').innerText = data.desc;
+            document.getElementById('detail-quote').innerText = `"${data.quote}"`;
+            document.getElementById('detail-tag').innerText = data.tag;
+            
+            // Show quote container
+            document.getElementById('detail-quote-container').classList.remove('hidden');
+            
+            // Adjust watermark icon based on topic type
+            const watermark = document.getElementById('detail-watermark');
+            watermark.className = "fa-solid text-[120px]";
+            if(id === 1) watermark.classList.add('fa-chart-line');
+            else if(id === 2) watermark.classList.add('fa-heart');
+            else if(id === 3) watermark.classList.add('fa-car-tunnel');
+            else if(id === 4) watermark.classList.add('fa-hand-holding-dollar');
+            else if(id === 5) watermark.classList.add('fa-map-pin');
+            else if(id === 6) watermark.classList.add('fa-earth-asia');
+            else if(id === 7) watermark.classList.add('fa-lightbulb');
+            else watermark.classList.add('fa-ellipsis');
+        }
+
+        // Simulator Logic
+        function calculateSimulator() {
+            const hasPrice = document.getElementById('policy-price').checked;
+            const hasLuggage = document.getElementById('policy-luggage').checked;
+            const hasEco = document.getElementById('policy-eco').checked;
+            const hasNudge = document.getElementById('policy-nudge').checked;
+
+            // Base scores
+            let citizen = 40;
+            let tourist = 40;
+            let balance = 30;
+
+            // Apply Policy impacts (Combinatorial equations)
+            if (hasPrice) {
+                citizen += 20;
+                tourist += 15;
+            } else {
+                citizen -= 10;
+                tourist -= 15; // 바가지 이슈로 관광객 이탈 유발
+            }
+
+            if (hasLuggage) {
+                citizen += 15;
+                tourist += 20;
+            }
+
+            if (hasEco) {
+                balance += 40;
+                tourist += 15;
+                citizen += 10;
+            }
+
+            if (hasNudge) {
+                citizen += 15;
+                tourist += 10;
+                balance += 15;
+            }
+
+            // Cap the results to max 100 and min 10
+            citizen = Math.min(100, Math.max(10, citizen));
+            tourist = Math.min(100, Math.max(10, tourist));
+            balance = Math.min(100, Math.max(10, balance));
+
+            // Visual Rendering update
+            updateProgress('bar-citizen', 'bar-citizen-val', citizen);
+            updateProgress('bar-tourist', 'bar-tourist-val', tourist);
+            updateProgress('bar-balance', 'bar-balance-val', balance);
+
+            // Verdict Statement dynamic update
+            const verdict = document.getElementById('simulator-verdict');
+            if (citizen >= 80 && tourist >= 80 && balance >= 80) {
+                verdict.innerText = "🥇 축하합니다! 완벽한 상생 균형에 도달했습니다.";
+                verdict.className = "text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full animate-bounce";
+            } else if (citizen < 50) {
+                verdict.innerText = "⚠️ 경고: 주민 생활 불편 및 바가지 요금 리스크가 큽니다.";
+                verdict.className = "text-xs font-bold text-rose-700 bg-rose-100 px-3 py-1 rounded-full";
+            } else if (balance < 50) {
+                verdict.innerText = "⚖️ 불균형: 해운대·서면에 편중된 개발이 이어지고 있습니다.";
+                verdict.className = "text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full";
+            } else {
+                verdict.innerText = "👍 양호함: 상생 방향으로 착실히 나아가고 있습니다.";
+                verdict.className = "text-xs font-bold text-busanBlue-600 bg-busanBlue-50 px-3 py-1 rounded-full";
+            }
+        }
+
+        function updateProgress(barId, valId, score) {
+            const bar = document.getElementById(barId);
+            const val = document.getElementById(valId);
+            bar.style.width = score + "%";
+            val.innerText = score + "점";
+        }
+
+        // Run calculation once at start
+        window.onload = function() {
+            calculateSimulator();
+            // Default select economic effects
+            showOpinion(1);
+        };
+    </script>
+</body>
+</html>
