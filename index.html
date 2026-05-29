@@ -11,7 +11,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <script>
-        // 테마 설정을 위한 스크립트 (플리커 방지)
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -94,7 +93,7 @@
             box-shadow: 0 10px 30px rgba(0, 122, 255, 0.1);
         }
 
-        /* Neon Text */
+        /* Neon Glow Text */
         .neon-glow {
             text-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
         }
@@ -129,7 +128,6 @@
     <div class="mesh-bg"></div>
     <div class="noise"></div>
 
-    <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md border-b border-black/5 dark:border-white/5">
         <div class="font-bold text-xl tracking-tighter">AI <span class="text-[#007AFF]">LITERACY</span></div>
         <div class="flex items-center gap-6">
@@ -142,7 +140,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="relative min-h-screen flex flex-col justify-center items-center px-6 text-center pt-20">
         <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium tracking-widest text-[#007AFF] uppercase" data-aos="fade-down">
             Portfolio 2026
@@ -164,7 +161,6 @@
         </div>
     </header>
 
-    <!-- Tasks Section -->
     <main id="tasks" class="max-w-7xl mx-auto px-6 py-32">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
@@ -258,7 +254,7 @@
                 </div>
             </div>
 
-            <!-- 과제 카드 07 (새로 추가된 유튜브 댓글 분석 2) -->
+            <!-- 과제 카드 07 (유튜브 댓글 분석 2) -->
             <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="openModal('과제 07: 유튜브 댓글 분석 2', '수집된 유튜브 댓글 데이터를 고도화하여 토픽 모델링 및 시각화 대시보드를 구축합니다.', 'LDA 토픽 모델링 기법 적용, 시간대별 댓글 분석, 반응 시각화', './08/index.html')">
                 <div class="flex justify-between items-start mb-6">
                     <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 07</span>
@@ -271,10 +267,23 @@
                     <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Dashboard</span>
                 </div>
             </div>
+
+            <!-- 과제 카드 08 (일일 박스오피스 순위) -->
+            <div class="glass p-8 rounded-3xl cursor-pointer" data-aos="fade-up" data-aos-delay="400" onclick="openModal('과제 08: 일일 박스오피스 순위', 'KOBIS API를 연동하여 실시간 일일 박스오피스 순위를 조회하고 영화 상세 정보 및 통계를 시각화합니다.', 'KOBIS 오픈 API 연동 실습, 실시간 박스오피스 데이터 랭킹 구현, 차트 기반 관객 수 트렌드 시각화 및 UI 개발', 'https://boxoffice-8s49.vercel.app/')">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-xs font-mono text-[#007AFF] font-bold">TASK 08</span>
+                    <svg class="w-5 h-5 opacity-30 dark:opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h18M3 16h18M12 4v16"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">일일 박스오피스 순위</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">KOBIS 오픈 API를 연동하여 최신 일일 박스오피스 데이터를 실시간으로 조회하고 대시보드를 구성합니다.</p>
+                <div class="flex gap-2">
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">KOBIS API</span>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-[10px] text-gray-600 dark:text-gray-300">Real-time</span>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- About Section -->
     <section id="about" class="py-32 bg-black/5 dark:bg-white/5 transition-colors duration-500">
         <div class="max-w-4xl mx-auto px-6">
             <div class="glass p-12 rounded-[2rem] text-center" data-aos="zoom-in">
@@ -300,7 +309,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-20 px-6 border-t border-black/5 dark:border-white/5 text-center transition-colors duration-500">
         <p class="text-gray-500 italic mb-10">"AI는 도구일 뿐, 해석의 주체는 인간입니다."</p>
         <div class="flex justify-center gap-8 mb-12">
