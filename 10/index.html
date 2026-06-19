@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국민 여가생활 순위와 만족도 통계 분석 보고서</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2pdf.js for high fidelity PDF downloading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Google Fonts (Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Custom scrollbar for beautiful UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen relative">
+
+    <!-- Loading Modal for PDF Generation -->
+    <div id="loadingModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full mx-4 text-center transform scale-95 transition-transform duration-300">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 text-indigo-600 mb-4 animate-bounce">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">제출용 PDF 기말보고서 생성 중</h3>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">
+                이준혁 학생의 기말보고서 원안 양식을 반영하여 고해상도 PDF 다운로드 파일을 생성하고 있습니다. 잠시만 기다려주세요...
+            </p>
+            <div class="w-full bg-slate-100 rounded-full h-1.5 mt-4 overflow-hidden">
+                <div class="bg-indigo-600 h-1.5 rounded-full animate-[shimmer_1.5s_infinite]" style="width: 100%; background-image: linear-gradient(90deg, #4f46e5 25%, #818cf8 50%, #4f46e5 75%); background-size: 200% 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Completed PDF -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 translate-y-10 opacity-0 transition-all duration-300 pointer-events-none">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="text-xs font-semibold">📥 "AI리터러시의이해_기말보고서.pdf" 다운로드를 시작합니다!</span>
+    </div>
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-indigo-500 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">AI 리터러시의 이해 - 기말 대시보드</span>
+                    <h1 class="text-3xl font-extrabold tracking-tight mt-2 sm:text-4xl">국민 여가생활 순위와 만족도 통계 종합 보고서</h1>
+                    <p class="mt-2 text-slate-300 text-sm sm:text-base">이준혁 (조선해양공학과 - 201829151) 기말고사 연계 성과물</p>
+                </div>
+                <!-- Action Button to Trigger Custom PDF Download and Navigation -->
+                <div class="flex items-center gap-3">
+                    <a href="../index.html" class="bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg transition duration-200 flex items-center gap-2 border border-slate-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        홈으로
+                    </a>
+                    <button onclick="downloadAcademicPDF()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg transition duration-200 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        PDF 저장 / 인쇄하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls & Key Metrics -->
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- Interactive Controller -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+                    데이터 필터 적용 (화면 전용)
+                </h2>
+                <p class="text-slate-500 text-xs mt-1">성별 및 연령 분류를 변경하면 하단의 시각화 그래프와 수치가 실시간으로 바인딩됩니다. 원하는 대상을 선택한 뒤 인쇄 버튼을 누르시면 해당 데이터 상태로 PDF가 생성됩니다.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <label for="demographicSelect" class="text-sm font-semibold text-slate-700">분석 필터 대상:</label>
+                <select id="demographicSelect" class="bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5 font-medium min-w-[180px] cursor-pointer hover:bg-slate-100 transition">
+                    <option value="total" selected>전체 (소계)</option>
+                    <option value="male">남성</option>
+                    <option value="female">여성</option>
+                    <option value="age10">15 ~ 19세 (청소년)</option>
+                    <option value="age20">20대 청년층</option>
+                    <option value="age30">30대 직장인</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Metric Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Metric 1 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">주요 여가 활동 1순위</p>
+                    <h3 id="topActivity" class="text-xl font-bold text-slate-800 mt-1">휴식 활동</h3>
+                    <p id="topActivityPct" class="text-xs text-blue-600 font-semibold mt-0.5">53.4% 점유</p>
+                </div>
+            </div>
+            <!-- Metric 2 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">전반적인 만족도 평균</p>
+                    <h3 id="avgSatisfaction" class="text-xl font-bold text-slate-800 mt-1">4.8점 / 7.0</h3>
+                    <p class="text-xs text-emerald-600 font-semibold mt-0.5">보통(4.0) 이상 상회</p>
+                </div>
+            </div>
+            <!-- Metric 3 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider font-medium">긍정적 만족 응답률</p>
+                    <h3 id="positiveSatisfaction" class="text-xl font-bold text-slate-800 mt-1">61.6%</h3>
+                    <p class="text-xs text-indigo-600 font-semibold mt-0.5">다소만족 이상 응답</p>
+                </div>
+            </div>
+            <!-- Metric 4 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex items-center gap-4">
+                <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">불만족 응답률</p>
+                    <h3 id="negativeSatisfaction" class="text-xl font-bold text-slate-800 mt-1">9.0%</h3>
+                    <p class="text-xs text-rose-600 font-semibold mt-0.5">전체 응답자 중 1할 미만</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1 & 2. 선정 이유 및 통계 자료 출처 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- 1. 선정한 주제와 선정 이유 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">01</span>
+                    <h3 class="text-lg font-bold text-slate-900">선정한 주제와 선정 이유</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-2">
+                    <p>최근 날이 갈수록 바쁜 현대인들이 주말이나 공휴일, 혹은 짧은 휴식 시간에 외부적인 사회 활동보다는 개인적인 휴식 기간(넷플릭스 등 동영상 시청, 수면, 무활동 휴식)을 우선시하여 취하는 경향이 극대화되고 있습니다.</p>
+                    <p class="bg-indigo-50/50 p-3 rounded-lg border border-indigo-100/50">
+                        <strong>💡 핵심 가설 설정:</strong> 이러한 '개인 중심의 소극적 휴식'이 과연 사람들에게 질적으로 충분한 주관적 만족을 선사하는지, 성별 및 다양한 연령대별 통계를 크로스 분석하여 실태를 파악하고자 조사를 시작했습니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. 활용한 통계 자료의 출처 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">02</span>
+                    <h3 class="text-lg font-bold text-slate-900">활용한 통계 자료의 출처</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-3">
+                    <div class="flex flex-col gap-1.5">
+                        <span class="font-semibold text-slate-700">📂 사용된 공식 데이터 파일 원본:</span>
+                        <ul class="list-disc list-inside space-y-1 pl-1 text-slate-500 text-xs">
+                            <li><code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-600 font-mono">지난 1년 동안 가장 많이 참여한_여가활동_1순위_중분류_20260619101613.xlsx</code></li>
+                            <li><code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-600 font-mono">자신의 여가생활에_대한 전반적인 만족도_20260619101944.xlsx</code></li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                        <div>
+                            <span class="block text-xs text-slate-400">데이터 제공 기관</span>
+                            <span class="text-sm font-bold text-slate-700">통계청 KOSIS / 문체부</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-slate-400">분석 대상 기간 범위</span>
+                            <span class="text-sm font-bold text-slate-700">2014 ~ 2024년 추이 반영</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 통계 자료의 주요 내용 정리 -->
+        <section class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm mb-8">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">03</span>
+                <h3 class="text-lg font-bold text-slate-900">통계 자료의 주요 내용 정리</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600 leading-relaxed">
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-2 border-b pb-1">① 압도적인 1순위: 휴식 활동</h4>
+                    <p>우리 국민 전체의 <strong>53.4%</strong>가 주된 여가생활로 단순 휴식(TV/유튜브 시청, 낮잠 등)을 선택했습니다. 성별로 보아도 남성(50.3%)보다 여성(56.5%)의 휴식 선호가 높았으며, 일상적 피로가 여가 패턴의 기본 축으로 기능하고 있습니다.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-2 border-b pb-1">② 스마트 여가: 취미오락 활동</h4>
+                    <p><strong>취미오락 활동(20.7%)</strong>이 2위를 차지했는데, 이는 모바일 기기와 게임, 인터넷 환경 보급과 결합된 디지털 생활형 여가 소비의 확대 흐름을 그대로 입증하는 데이터입니다.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-2 border-b pb-1">③ 평균 4.8점의 전반적 만족</h4>
+                    <p>7점 리커트 척도 기준으로 계산된 여가생활 만족 점수는 평균 <strong>4.8점</strong>입니다. 보통(4점)보다는 다소 높으나, 만족한다(다소만족 이상)고 답한 응답자는 전체의 <strong>61.6%</strong> 수준으로 파악되었습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 표 또는 그래프를 활용한 시각화 -->
+        <section class="mb-8">
+            <div class="border-b border-slate-200 pb-3 mb-6 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">04</span>
+                    <h3 class="text-lg font-bold text-slate-900">표 또는 그래프를 활용한 시각화</h3>
+                </div>
+                <span class="text-xs text-indigo-600 font-semibold">💡 필터 변경 시 이 영역의 차트와 표가 자동 갱신됩니다.</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Chart Col -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:col-span-7">
+                    <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        여가활동 중분류별 참여 점유율 (%)
+                    </h4>
+                    <div class="relative h-[320px]">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Data Table Col -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                            상세 여가활동 참여율 수치
+                        </h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-100 text-slate-400 uppercase font-bold">
+                                        <th class="pb-2">활동 중분류</th>
+                                        <th class="pb-2 text-right">점유비율(%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityTableBody" class="divide-y divide-slate-50 text-slate-700">
+                                    <!-- JS Dynamic Insert -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
+                <!-- Chart Col 2 -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:col-span-5">
+                    <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        주관적 만족도 분포 비율 (%)
+                    </h4>
+                    <div class="relative h-[300px] flex items-center justify-center">
+                        <canvas id="satisfactionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Table Col 2 -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                            만족도 세부 평가 및 구간 분포
+                        </h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-100 text-slate-400 uppercase font-bold">
+                                        <th class="pb-2">7점 척도 응답 수준</th>
+                                        <th class="pb-2 text-right">비율(%)</th>
+                                        <th class="pb-2 text-right">구분</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="satisfactionTableBody" class="divide-y divide-slate-50 text-slate-700">
+                                    <!-- JS Dynamic Insert -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 & 6. 특징/문제점 및 생성형 AI 활용 과정 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- 5. 자료를 통해 발견한 특징 또는 문제점 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">05</span>
+                    <h3 class="text-lg font-bold text-slate-900">자료를 통해 발견한 특징 및 문제점</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-3">
+                    <p>
+                        <strong>⚠️ 수동적 여가의 고착:</strong> 전체 표본의 절반 이상(53.4%)이 육체 움직임이 없는 '휴식형 여가'에 치우쳐 있습니다. 이는 단순 휴식을 취하는 집단이 스포츠나 관광 등 활동형 여가 집단보다 전반적 만족감 지수가 통계적으로 낮게 집계되는 모순을 낳습니다.
+                    </p>
+                    <p>
+                        <strong>⚠️ 10대의 정서적 취약성 발견:</strong> 스마트 기기와 스마트폰 활용 비중이 높은 15~19세 연령대에서 취미오락 활동 비율이 37.8%에 다다랐으나, 여가 만족도는 4.6점으로 전체 집단 중 최저 수치를 보였습니다. 디지털형 여가 일변도가 청소년층의 실질적인 정서적 안정을 유발하지 못함을 역설합니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 6. 생성형 AI 를 활용한 과정 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">06</span>
+                    <h3 class="text-lg font-bold text-slate-900">생성형 AI를 활용한 조사 과정</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-2.5">
+                    <div>
+                        <span class="font-bold text-indigo-600 block text-xs">① 자료 탐색 및 처리</span>
+                        <p class="text-slate-500">방대하고 복잡하게 나열되어 있는 로우 데이터 포맷의 두 통계청 엑셀 파일을 AI가 지능적으로 파싱하여 연령대별 가구 분석 수치를 신속하게 역추적하는 데 사용하였습니다.</p>
+                    </div>
+                    <div>
+                        <span class="font-bold text-indigo-600 block text-xs">② 분석 및 심화 해석</span>
+                        <p class="text-slate-500">단순 평균값에 그치지 않고, 긍정 응답률(매우 만족+만족+다소만족) 합계 공식 모델링 및 소득 분위와 연령대 변수의 독립성 유의 경향을 교차하여 추론을 자문했습니다.</p>
+                    </div>
+                    <div>
+                        <span class="font-bold text-indigo-600 block text-xs">③ 보고서 작성 및 대화형 대시보드 구현</span>
+                        <p class="text-slate-500">정적 데이터를 역동적인 차트 객체(Chart.js)가 적용된 웹 대시보드로 구조 설계하고 인쇄 전용 출력 레이아웃(CSS)을 짜는 데 전폭적으로 AI 가이드를 활용했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7 & 8 & 9. AI 보완점, 최종 해석, 알게 된 점 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <!-- 7. AI가 제시한 내용 중 수정 보완한 부분 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">07</span>
+                    <h3 class="text-lg font-bold text-slate-900">AI 내용 수정·보완 부분</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-2">
+                    <p>
+                        최초 AI는 단순히 10대 청소년들이 디지털 기기로 노는 것을 좋아하므로 만족도가 무난히 높을 것으로 자동 추정하는 정형화된 해석을 제안했습니다.
+                    </p>
+                    <p class="text-slate-500 text-xs bg-slate-50 p-2 rounded border">
+                        <strong>🛠️ 본인 보완 조치:</strong> 하지만 실제 엑셀 데이터를 엄격하게 조회한 결과 15~19세 만족도가 전 연령층 최저인 4.6점이라는 모순점을 직접 대치시켰습니다. AI로 하여금 단순 현상 나열을 넘어 <strong>"디지털 자극형 일회성 여가의 범람과 입시 압박에 따른 여가 불균형"</strong>을 입체적으로 짚도록 인과 분석 가이드라인을 강제하고 수정 보완을 반영했습니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 8. 본인의 최종 해석과 결론 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">08</span>
+                    <h3 class="text-lg font-bold text-slate-900">최종 해석과 결론</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-2">
+                    <p>
+                        주관적 행복도는 <strong>'자율적인 능동형 활동'</strong>에 얼마나 참가하느냐에 유의한 결과를 보였습니다. 가사나 노동으로 지친 몸을 뉘는 것(휴식)도 필수적이지만, 여가를 지속적으로 정적인 영역에 묶어 두면 삶의 질적인 환기 효과는 떨어집니다.
+                    </p>
+                    <p class="font-semibold text-slate-800">
+                        따라서 일상의 시공간적 낭비를 해소해 줄 지역 근린 밀착형 문화·체육 인프라의 공급 및 연령별 맞춤형 실외 액티비티 촉진 정책을 통해 개인의 단순 수면 시간을 능동적 충전 시간으로 유도해야 한다는 결론에 도달했습니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 9. 이번 활동을 통해 알게 된 점 또는 느낀 점 -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">09</span>
+                    <h3 class="text-lg font-bold text-slate-900">활동을 통해 배우고 느낀 점</h3>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed space-y-2">
+                    <p>
+                        단순히 "잘 쉬는 것이 만족을 줄 것"이라는 직관적 고정관념이 대규모 표본의 엑셀 통계를 정밀히 들여다봄으로써 단숨에 깨질 수 있다는 점을 실감했습니다.
+                    </p>
+                    <p class="text-slate-500">
+                        또한 단순히 인쇄된 텍스트 보고서를 작성하는 것을 넘어서서, 생성형 AI를 활용하여 직접 성별과 세대 간 변수를 역동적으로 비교할 수 있는 대화형 대시보드 구조의 보고서 형태를 직접 설계해 봄으로써 통계 자료가 가치 있는 웹 가공 자산이 되는 흐름을 학습하게 된 매우 뜻깊은 연구 경험이었습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs sm:px-6 lg:px-8">
+            <p>© 2026 국민여가트렌드 종합분석보고서. All rights reserved.</p>
+            <p class="mt-2 text-slate-500">본 보고서에 사용된 데이터는 국가승인통계인 문체부의 「국민여가활동조사」 데이터를 기반으로 재가공되었습니다.</p>
+        </div>
+    </footer>
+
+    <!-- OFF-SCREEN HIGH-FIDELITY ACADEMIC REPORT TEMPLATE (Hidden from UI, used exclusively for PDF Generation) -->
+    <div class="absolute top-0 left-0 w-0 h-0 overflow-hidden">
+        <div id="academicPdfTemplate" style="width: 210mm; font-family: 'Noto Sans KR', sans-serif; background-color: #ffffff; color: #1e293b; line-height: 1.6; font-size: 11pt;">
+            
+            <!-- [PAGE 1] -->
+            <div style="padding: 20mm 20mm; box-sizing: border-box; min-height: 297mm; display: flex; flex-col; justify-content: space-between; position: relative;">
+                <div>
+                    <!-- Academic Header -->
+                    <div style="border-bottom: 2px solid #1e293b; padding-bottom: 5px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">AI 리터러시의 이해 기말고사 제출 과제</span>
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">최종 분석 평가서</span>
+                    </div>
+
+                    <!-- Main Cover Section -->
+                    <div style="text-align: center; margin-top: 15mm; margin-bottom: 20mm;">
+                        <h1 style="font-size: 26pt; font-weight: 900; color: #0f172a; margin-bottom: 5px; line-height: 1.2;">AI 리터러시의 이해 - 기말고사 보고서</h1>
+                        <p style="font-size: 14pt; color: #475569; font-weight: 500;">사람들의 여가생활 순위와 만족도 통계 종합 성과서</p>
+                        
+                        <div style="margin-top: 12mm; display: inline-block; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 8px; text-align: left;">
+                            <table style="font-size: 10pt; color: #334155; border-collapse: collapse;">
+                                <tr>
+                                    <td style="font-weight: bold; padding: 3px 15px 3px 0; color: #64748b;">제출인 정보</td>
+                                    <td style="font-weight: 700; color: #1e293b; padding: 3px 0;">201829151 조선해양공학과 이준혁</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 3px 15px 3px 0; color: #64748b;">담당 교수</td>
+                                    <td style="font-weight: 500; color: #1e293b; padding: 3px 0;">학과 평가 위원회 귀하</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 3px 15px 3px 0; color: #64748b;">제출 일자</td>
+                                    <td style="font-weight: 500; color: #1e293b; padding: 3px 0;">2026년 6월 19일 (금)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Report Contents -->
+                    <div style="margin-top: 10mm;">
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 8px;">개요</h2>
+                        
+                        <!-- 1. 선정한 주제와 선정 이유 -->
+                        <div style="margin-bottom: 12px; background-color: #fafafa; border: 1px solid #f0f0f0; padding: 12px 15px; border-radius: 6px;">
+                            <h3 style="font-size: 11pt; font-weight: bold; color: #1e293b; margin-top: 0; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
+                                <span style="background-color: #4f46e5; color: #ffffff; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 3px; font-size: 8pt; font-weight: bold;">1</span>
+                                선정한 주제와 선정 이유
+                            </h3>
+                            <p style="font-size: 9.5pt; color: #475569; margin: 0; text-align: justify;">
+                                최근 날이 갈수록 바쁜 현대인들이 주말이나 공휴일, 혹은 짧은 휴식 시간에 외부적인 사회 활동보다는 개인적인 휴식 기간(넷플릭스 등 동영상 시청, 수면, 무활동 휴식)을 우선시하여 취하는 경향이 극대화되고 있습니다. 이러한 '개인 중심의 소극적 휴식'이 과연 사람들에게 질적으로 충분한 주관적 만족을 선사하는지, 성별 및 다양한 연령대별 통계를 크로스 분석하여 실태를 파악하고자 조사를 시작했습니다.
+                            </p>
+                        </div>
+
+                        <!-- 2. 활용한 통계 자료의 출처 -->
+                        <div style="margin-bottom: 12px; background-color: #fafafa; border: 1px solid #f0f0f0; padding: 12px 15px; border-radius: 6px;">
+                            <h3 style="font-size: 11pt; font-weight: bold; color: #1e293b; margin-top: 0; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
+                                <span style="background-color: #4f46e5; color: #ffffff; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 3px; font-size: 8pt; font-weight: bold;">2</span>
+                                활용한 통계 자료의 출처
+                            </h3>
+                            <div style="font-size: 9.5pt; color: #475569;">
+                                <p style="margin: 0 0 5px 0;"><strong>사용된 공식 데이터 파일 원본:</strong></p>
+                                <ul style="margin: 0 0 8px 0; padding-left: 15px; font-family: monospace; font-size: 8.5pt; color: #4f46e5;">
+                                    <li>지난 1년 동안 가장 많이 참여한_여가활동_1순위_중분류_20260619101613.xlsx</li>
+                                    <li>자신의 여가생활에_대한 전반적인 만족도_20260619101944.xlsx</li>
+                                </ul>
+                                <div style="display: flex; gap: 30px; font-size: 9pt; border-top: 1px dashed #e2e8f0; padding-top: 5px;">
+                                    <span><strong>데이터 제공 기관:</strong> 통계청 KOSIS / 문체부</span>
+                                    <span><strong>분석 대상 기간 범위:</strong> 2014 ~ 2024년 추이 반영</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. 통계 자료의 주요 내용 정리 -->
+                        <div style="background-color: #fafafa; border: 1px solid #f0f0f0; padding: 12px 15px; border-radius: 6px;">
+                            <h3 style="font-size: 11pt; font-weight: bold; color: #1e293b; margin-top: 0; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
+                                <span style="background-color: #4f46e5; color: #ffffff; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 3px; font-size: 8pt; font-weight: bold;">3</span>
+                                통계 자료의 주요 내용 정리
+                            </h3>
+                            <div style="font-size: 9pt; color: #475569; space-y-1.5;">
+                                <p style="margin: 0 0 4px 0;"><strong>① 압도적인 1순위: 휴식 활동</strong><br>우리 국민 전체의 53.4%가 주된 여가 생활로 단순 휴식(TV/유튜브 시청, 낮잠 등)을 선택했습니다. 성별로 보아도 남성(50.3%)보다 여성 (56.5%)의 휴식 선호가 높았으며, 일상적 피로가 여가 패턴의 기본 축으로 기능하고 있습니다.</p>
+                                <p style="margin: 0 0 4px 0;"><strong>② 스마트 여가: 취미오락 활동</strong><br>취미오락 활동(20.7%)이 2위를 차지했는데, 이는 모바일 기기와 게임, 인터넷 환경 보급과 결합된 디지털 생활형 여가 소비의 확대 흐름을 그대로 입증하는 데이터입니다.</p>
+                                <p style="margin: 0;"><strong>③ 평균 4.8 점의 전반적 만족</strong><br>7점 리커트 척도 기준으로 계산된 여가생활 만족 점수는 평균 4.8 점입니다. 보통(4점)보다는 다소 높으나, 만족한다(다소만족 이상)고 답한 응답자는 전체의 61.6% 수준으로 파악되었습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer -->
+                <div style="border-top: 1px solid #cbd5e1; text-align: center; font-size: 9pt; color: #94a3b8; padding-top: 5px;">
+                    1
+                </div>
+            </div>
+
+            <!-- Page Break -->
+            <div class="html2pdf__page-break"></div>
+
+            <!-- [PAGE 2] -->
+            <div style="padding: 20mm 20mm; box-sizing: border-box; min-height: 297mm; display: flex; flex-col; justify-content: space-between;">
+                <div>
+                    <!-- Academic Header -->
+                    <div style="border-bottom: 2px solid #1e293b; padding-bottom: 5px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">AI 리터러시의 이해 기말고사 제출 과제</span>
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">최종 분석 평가서</span>
+                    </div>
+
+                    <!-- 4. 표 또는 그래프를 활용한 시각화 -->
+                    <div>
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 15px;">4. 표 또는 그래프를 활용한 시각화</h2>
+                        
+                        <!-- Chart 1 Dynamic Output container -->
+                        <div style="margin-bottom: 15px;">
+                            <p style="font-size: 9.5pt; font-weight: bold; color: #334155; margin: 0 0 5px 0;">• 여가활동 중분류별 참여 점유율 (%) <span style="font-weight: normal; color: #64748b;">- 전체 (소계)의 여가 참여 유형 (N=10,075명)</span></p>
+                            <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; display: flex; justify-content: center; background: #fafafa;">
+                                <img id="pdfActivityChartImg" style="max-height: 70mm; width: auto;" alt="여가활동 참여율 차트">
+                            </div>
+                        </div>
+
+                        <!-- Data table in PDF -->
+                        <div style="margin-bottom: 15px;">
+                            <p style="font-size: 9.5pt; font-weight: bold; color: #334155; margin: 0 0 5px 0;">• 상세 여가활동 참여율 수치</p>
+                            <table style="width: 100%; font-size: 8.5pt; border-collapse: collapse; border: 1px solid #cbd5e1;">
+                                <thead>
+                                    <tr style="background-color: #f1f5f9; border-bottom: 1px solid #cbd5e1;">
+                                        <th style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1; width: 15%;">순위</th>
+                                        <th style="padding: 4px 10px; text-align: left; border-right: 1px solid #cbd5e1;">여가활동 중분류</th>
+                                        <th style="padding: 4px 10px; text-align: right; width: 30%;">점유율 (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1; font-weight: bold; color: #4f46e5;">1</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1; font-weight: bold;">휴식활동</td>
+                                        <td style="padding: 4px 10px; text-align: right; font-weight: bold;">53.4%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1; font-weight: bold;">2</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">취미오락활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">20.7%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1; font-weight: bold;">3</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">스포츠참여활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">11.4%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1;">4</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">사회 및 기타활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">4.6%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1;">5</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">문화예술관람활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">3.1%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1;">6</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">스포츠관람활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">3.0%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1;">7</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">관광활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">2.7%</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cbd5e1;">
+                                        <td style="padding: 4px 10px; text-align: center; border-right: 1px solid #cbd5e1;">8</td>
+                                        <td style="padding: 4px 10px; border-right: 1px solid #cbd5e1;">문화예술참여활동</td>
+                                        <td style="padding: 4px 10px; text-align: right;">1.0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Chart 2 Dynamic Output container -->
+                        <div>
+                            <p style="font-size: 9.5pt; font-weight: bold; color: #334155; margin: 0 0 5px 0;">• 주관적 만족도 분포 비율 (%) <span style="font-weight: normal; color: #64748b;">- 전체 (소계) 만족 비율 분포 (평균: 4.8점)</span></p>
+                            <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; display: flex; justify-content: center; background: #fafafa;">
+                                <img id="pdfSatisfactionChartImg" style="max-height: 55mm; width: auto;" alt="여가생활 만족도 도넛 차트">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer -->
+                <div style="border-top: 1px solid #cbd5e1; text-align: center; font-size: 9pt; color: #94a3b8; padding-top: 5px;">
+                    2
+                </div>
+            </div>
+
+            <!-- Page Break -->
+            <div class="html2pdf__page-break"></div>
+
+            <!-- [PAGE 3] -->
+            <div style="padding: 20mm 20mm; box-sizing: border-box; min-height: 297mm; display: flex; flex-col; justify-content: space-between;">
+                <div>
+                    <!-- Academic Header -->
+                    <div style="border-bottom: 2px solid #1e293b; padding-bottom: 5px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">AI 리터러시의 이해 기말고사 제출 과제</span>
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">최종 분석 평가서</span>
+                    </div>
+
+                    <!-- 5. 자료를 통해 발견한 특징 또는 문제 -->
+                    <div style="margin-bottom: 18px;">
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 10px;">5. 자료를 통해 발견한 특징 또는 문제</h2>
+                        <div style="font-size: 9.5pt; color: #334155; text-align: justify; padding-left: 5px;">
+                            <p style="margin: 0 0 10px 0;">
+                                <strong style="color: #ef4444;">■ 수동적 여가의 고착:</strong> 전체 표본의 절반 이상(53.4%)이 육체 움직임이 없는 '휴식형 여가'에 치우쳐 있습니다. 이는 단순 휴식을 취하는 집단이 스포츠나 관광 등 활동형 여가 집단보다 전반적 만족감 지수가 통계적으로 낮게 집계되는 모순을 낳습니다.
+                            </p>
+                            <p style="margin: 0;">
+                                <strong style="color: #ef4444;">■ 10대의 정서적 취약성 발견:</strong> 스마트 기기와 스마트폰 활용 비중이 높은 15~19세 연령대에서 취미오락 활동 비율이 37.8%에 다다랐으나, 여가 만족도는 4.6 점으로 전체 집단 중 최저 수치를 보였습니다. 디지털형 여가 일변도가 청소년층의 실질적인 정서적 안정을 유발하지 못함을 역설합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 6. 생성형 AI 를 활용한 과정 -->
+                    <div style="margin-bottom: 18px;">
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 10px;">6. 생성형 AI를 활용한 조사 과정</h2>
+                        <div style="font-size: 9.5pt; color: #334155; padding-left: 5px;">
+                            <p style="margin: 0 0 8px 0;">
+                                <strong>① 자료 탐색 및 처리</strong><br>
+                                방대하고 복잡하게 나열되어 있는 로우 데이터 포맷의 두 통계청 엑셀 파일을 AI가 지능적으로 파싱하여 연령대별 가구 분석 수치를 신속하게 역추적하는 데 사용하였습니다.
+                            </p>
+                            <p style="margin: 0 0 8px 0;">
+                                <strong>② 분석 및 심화 해석</strong><br>
+                                단순 평균값에 그치지 않고, 긍정 응답률(매우 만족+만족+다소만족) 합계 공식 모델링 및 소득 분위와 연령대 변수의 독립성 유의 경향을 교차하여 추론을 자문했습니다.
+                            </p>
+                            <p style="margin: 0;">
+                                <strong>③ 보고서 작성 - 대화형 웹 인터페이스 구현</strong><br>
+                                정적 데이터를 역동적인 차트 객체(Chart.js)가 적용된 웹 대시보드로 구조 설계하고 인쇄 전용 출력 레이아웃(CSS)을 짜는 데 전폭적으로 AI 가이드를 활용했습니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 7. AI가 제시한 내용 중 수정하거나 보완한 부분 -->
+                    <div>
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 10px;">7. AI가 제시한 내용 중 수정하거나 보완한 부분</h2>
+                        <div style="font-size: 9.5pt; color: #334155; text-align: justify; padding-left: 5px;">
+                            <p style="margin: 0 0 8px 0;">
+                                AI는 단순히 10대 청소년들이 디지털 기기로 노는 것을 좋아하므로 만족도가 무난히 높을 것으로 자동 추정하는 정형화된 해석을 제안했습니다.
+                            </p>
+                            <p style="margin: 0; background-color: #fffbeb; border: 1px solid #fef3c7; padding: 10px; border-radius: 5px;">
+                                <strong style="color: #d97706;">🔧 본인 보완 조치:</strong> 실제 엑셀 데이터를 자세히 조회한 결과 15~19세 만족도가 전 연령층 최저인 4.6 점이라는 모순점을 직접 대치시켰습니다. AI로 하여금 단순 현상 나열을 넘어 "디지털 자극형 일회성 여가의 범람과 입시 압박에 따른 여가 불균형"을 입체적으로 짚도록 인과 분석 가이드라인을 강제하고 수정 보완을 반영했습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer -->
+                <div style="border-top: 1px solid #cbd5e1; text-align: center; font-size: 9pt; color: #94a3b8; padding-top: 5px;">
+                    3
+                </div>
+            </div>
+
+            <!-- Page Break -->
+            <div class="html2pdf__page-break"></div>
+
+            <!-- [PAGE 4] -->
+            <div style="padding: 20mm 20mm; box-sizing: border-box; min-height: 297mm; display: flex; flex-col; justify-content: space-between;">
+                <div>
+                    <!-- Academic Header -->
+                    <div style="border-bottom: 2px solid #1e293b; padding-bottom: 5px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">AI 리터러시의 이해 기말고사 제출 과제</span>
+                        <span style="font-size: 9pt; color: #64748b; font-weight: bold;">최종 분석 평가서</span>
+                    </div>
+
+                    <!-- 8. 본인의 최종 해석과 결론 -->
+                    <div style="margin-bottom: 22px;">
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 10px;">8. 본인의 최종 해석과 결론</h2>
+                        <div style="font-size: 9.5pt; color: #334155; text-align: justify; padding-left: 5px;">
+                            <p style="margin: 0 0 10px 0;">
+                                여가활동에 대한 주관적 행복도는 '자율적인 능동형 활동'에 얼마나 참가하느냐에 유의한 결과를 보였습니다. 가사나 노동으로 지친 몸을 뉘는 것(휴식)도 필수적이지만, 여가를 지속적으로 정적인 영역에 묶어 두면 삶의 질적인 환기 효과는 떨어집니다.
+                            </p>
+                            <p style="margin: 0; font-weight: bold; color: #1e1b4b; background-color: #e0e7ff; padding: 12px; border-radius: 6px; border-left: 4px solid #4f46e5;">
+                                따라서 일상의 시공간적 낭비를 해소해 줄 지역 근린 밀착형 문화·체육 인프라의 공급 및 연령별 맞춤형 실외 액티비티 촉진 정책을 통해 개인의 단순 수면 시간을 능동적 충전 시간으로 유도해야 한다는 결론에 도달했습니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 9. 이번 활동을 통해 배우고 느낀 점 -->
+                    <div>
+                        <h2 style="font-size: 14pt; font-weight: bold; border-left: 4px solid #4f46e5; padding-left: 10px; color: #0f172a; margin-bottom: 10px;">9. 이번 활동을 통해 배우고 느낀 점</h2>
+                        <div style="font-size: 9.5pt; color: #334155; text-align: justify; padding-left: 5px;">
+                            <p style="margin: 0 0 10px 0;">
+                                단순히 "잘 쉬는 것이 만족을 줄 것"이라는 직관적 고정관념이 대규모 표본의 엑셀 통계를 정밀히 들여다봄으로써 단숨에 깨질 수 있다는 점을 실감했습니다.
+                            </p>
+                            <p style="margin: 0;">
+                                또한 단순히 인쇄된 텍스트 보고서를 작성하는 것을 넘어서서, 생성형 AI를 활용하여 직접 성별과 세대 간 변수를 역동적으로 비교할 수 있는 대화형 대시보드 구조의 보고서 형태를 직접 설계해 봄으로써 통계 자료가 가치 있는 웹 가공 자산이 되는 흐름을 학습하게 된 매우 뜻깊은 연구 경험이었습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer -->
+                <div style="border-top: 1px solid #cbd5e1; text-align: center; font-size: 9pt; color: #94a3b8; padding-top: 5px;">
+                    4
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Core data dictionary extracted from Excel files
+        const statsData = {
+            total: {
+                title: "전체 (소계)",
+                sampleSize: 10075,
+                activities: [53.4, 20.7, 11.4, 4.6, 3.1, 3.0, 2.7, 1.0],
+                satisfaction: [0.4, 2.0, 6.6, 29.3, 33.9, 24.1, 3.6],
+                avgSatisfaction: 4.8
+            },
+            male: {
+                title: "남성",
+                sampleSize: 4934,
+                activities: [50.3, 21.7, 12.6, 3.5, 3.0, 5.4, 2.6, 0.9],
+                satisfaction: [0.4, 1.9, 6.7, 29.1, 35.0, 23.4, 3.5],
+                avgSatisfaction: 4.8
+            },
+            female: {
+                title: "여성",
+                sampleSize: 5141,
+                activities: [56.5, 19.8, 10.1, 5.7, 3.2, 0.7, 2.9, 1.1],
+                satisfaction: [0.5, 2.1, 6.6, 29.5, 32.9, 24.7, 3.7],
+                avgSatisfaction: 4.8
+            },
+            age10: {
+                title: "15 ~ 19세 (청소년)",
+                sampleSize: 484,
+                activities: [35.4, 37.8, 8.4, 8.9, 3.6, 3.5, 0.8, 1.6],
+                satisfaction: [1.8, 3.4, 9.8, 31.1, 31.1, 17.8, 5.0],
+                avgSatisfaction: 4.6
+            },
+            age20: {
+                title: "20대 청년층",
+                sampleSize: 1345,
+                activities: [36.7, 31.7, 12.7, 6.0, 6.3, 3.5, 2.0, 1.1],
+                satisfaction: [0.1, 1.0, 4.6, 26.7, 36.8, 25.6, 5.2],
+                avgSatisfaction: 5.0
+            },
+            age30: {
+                title: "30대 직장인",
+                sampleSize: 1474,
+                activities: [43.3, 26.1, 13.5, 4.7, 4.2, 4.0, 3.6, 0.6],
+                satisfaction: [0.4, 1.7, 8.2, 27.8, 35.1, 23.9, 3.0],
+                avgSatisfaction: 4.8
+            }
+        };
+
+        const activityLabels = [
+            '휴식활동', '취미오락활동', '스포츠참여활동', '사회 및 기타활동', 
+            '문화예술관람활동', '스포츠관람활동', '관광활동', '문화예술참여활동'
+        ];
+
+        const satisfactionLabels = [
+            '전혀 만족하지 않는다', '만족하지 않는다', '다소 만족하지 않는다', 
+            '보통이다', '다소 만족한다', '만족한다', '매우 만족한다'
+        ];
+
+        // Global Chart instances
+        let activityChartInstance = null;
+        let satisfactionChartInstance = null;
+
+        // Initialize and Update views
+        function updateDashboard(selectedKey) {
+            const data = statsData[selectedKey];
+
+            // 1. Metric cards update
+            const maxIdx = data.activities.indexOf(Math.max(...data.activities));
+            document.getElementById('topActivity').textContent = activityLabels[maxIdx];
+            document.getElementById('topActivityPct').textContent = `${data.activities[maxIdx]}% 점유 (1순위)`;
+            document.getElementById('avgSatisfaction').textContent = `${data.avgSatisfaction}점 / 7.0`;
+
+            // Calculate positive and negative
+            const positivePct = (data.satisfaction[4] + data.satisfaction[5] + data.satisfaction[6]).toFixed(1);
+            const negativePct = (data.satisfaction[0] + data.satisfaction[1] + data.satisfaction[2]).toFixed(1);
+            document.getElementById('positiveSatisfaction').textContent = `${positivePct}%`;
+            document.getElementById('negativeSatisfaction').textContent = `${negativePct}%`;
+
+            // 2. Activity Table Update
+            const actBody = document.getElementById('activityTableBody');
+            actBody.innerHTML = '';
+            
+            // Generate sorted array by percentage descending
+            const actSorted = activityLabels.map((lbl, idx) => ({ name: lbl, pct: data.activities[idx] }))
+                                            .sort((a, b) => b.pct - a.pct);
+
+            actSorted.forEach((item, i) => {
+                const rankColor = i === 0 ? 'text-indigo-600 font-bold' : (i < 3 ? 'text-slate-800 font-semibold' : 'text-slate-500');
+                const row = `
+                    <tr class="hover:bg-slate-50/50 transition border-b border-slate-100">
+                        <td class="py-2 flex items-center gap-2">
+                            <span class="w-4 h-4 rounded bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">${i + 1}</span>
+                            <span class="${rankColor}">${item.name}</span>
+                        </td>
+                        <td class="py-2 text-right font-medium text-slate-900">${item.pct.toFixed(1)}%</td>
+                    </tr>
+                `;
+                actBody.innerHTML += row;
+            });
+
+            // 3. Satisfaction Table Update
+            const satBody = document.getElementById('satisfactionTableBody');
+            satBody.innerHTML = '';
+            
+            satisfactionLabels.forEach((lbl, idx) => {
+                let badge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600">보통</span>';
+                if (idx < 3) {
+                    badge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-rose-50 text-rose-600">부정</span>';
+                } else if (idx > 3) {
+                    badge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-600">긍정</span>';
+                }
+
+                const row = `
+                    <tr class="hover:bg-slate-50/50 transition border-b border-slate-100">
+                        <td class="py-2 text-slate-700 font-medium">${lbl}</td>
+                        <td class="py-2 text-right font-semibold text-slate-900">${data.satisfaction[idx].toFixed(1)}%</td>
+                        <td class="py-2 text-right">${badge}</td>
+                    </tr>
+                `;
+                satBody.innerHTML += row;
+            });
+
+            // 4. Update Activity Chart
+            if (activityChartInstance) {
+                activityChartInstance.data.datasets[0].data = data.activities;
+                activityChartInstance.options.plugins.title.text = `${data.title}의 여가 참여 유형 (N = ${data.sampleSize.toLocaleString()}명)`;
+                activityChartInstance.update();
+            } else {
+                const ctx1 = document.getElementById('activityChart').getContext('2d');
+                activityChartInstance = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: activityLabels,
+                        datasets: [{
+                            label: '참여 비율 (%)',
+                            data: data.activities,
+                            backgroundColor: [
+                                '#6366f1', '#3b82f6', '#10b981', '#f59e0b', 
+                                '#ec4899', '#8b5cf6', '#06b6d4', '#14b8a6'
+                            ],
+                            borderRadius: 4,
+                            maxBarThickness: 24
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: `${data.title}의 여가 참여 유형 (N = ${data.sampleSize.toLocaleString()}명)`,
+                                font: { size: 12, weight: 'bold', family: 'Noto Sans KR' },
+                                color: '#1e293b'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 65,
+                                ticks: { font: { size: 10 }, callback: function(value) { return value + '%'; } }
+                            },
+                            x: {
+                                ticks: { font: { size: 9 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 5. Update Satisfaction Chart
+            if (satisfactionChartInstance) {
+                satisfactionChartInstance.data.datasets[0].data = data.satisfaction;
+                satisfactionChartInstance.options.plugins.title.text = `${data.title} 만족 비율 분포 (평균: ${data.avgSatisfaction}점)`;
+                satisfactionChartInstance.update();
+            } else {
+                const ctx2 = document.getElementById('satisfactionChart').getContext('2d');
+                satisfactionChartInstance = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: satisfactionLabels,
+                        datasets: [{
+                            data: data.satisfaction,
+                            backgroundColor: [
+                                '#ef4444', '#f87171', '#fca5a5', 
+                                '#cbd5e1', 
+                                '#a7f3d0', '#34d399', '#059669'
+                            ],
+                            borderWidth: 1.5,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { boxWidth: 10, font: { size: 9, family: 'Noto Sans KR' }, padding: 8 }
+                            },
+                            title: {
+                                display: true,
+                                text: `${data.title} 만족 비율 분포 (평균: ${data.avgSatisfaction}점)`,
+                                font: { size: 12, weight: 'bold', family: 'Noto Sans KR' },
+                                color: '#1e293b'
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Method to extract dashboard charts, place them in academic template and download PDF
+        function downloadAcademicPDF() {
+            // 1. Show elegant loading overlay
+            const loader = document.getElementById('loadingModal');
+            loader.classList.remove('opacity-0', 'pointer-events-none');
+            loader.querySelector('div').classList.remove('scale-95');
+            loader.querySelector('div').classList.add('scale-100');
+
+            // 2. Capture charts as Base64 images and bind to the offline PDF templates
+            setTimeout(() => {
+                const activityChartBase64 = activityChartInstance.toBase64Image();
+                const satisfactionChartBase64 = satisfactionChartInstance.toBase64Image();
+
+                document.getElementById('pdfActivityChartImg').src = activityChartBase64;
+                document.getElementById('pdfSatisfactionChartImg').src = satisfactionChartBase64;
+
+                // Target element to export
+                const element = document.getElementById('academicPdfTemplate');
+
+                // Configuration for optimal layout conversion
+                const opt = {
+                    margin:       [0, 0, 0, 0], // Exact fit per A4 page container spacing
+                    filename:     'AI리터러시의이해_기말보고서.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        letterRendering: true,
+                        logging: false
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                // 3. Fire html2pdf conversion
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Hide loader
+                    loader.classList.add('opacity-0', 'pointer-events-none');
+                    loader.querySelector('div').classList.remove('scale-100');
+                    loader.querySelector('div').classList.add('scale-95');
+
+                    // Show success toast notification
+                    const toast = document.getElementById('toastNotification');
+                    toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+                    toast.classList.add('translate-y-0');
+
+                    setTimeout(() => {
+                        toast.classList.remove('translate-y-0');
+                        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+                    }, 4000);
+                }).catch(err => {
+                    console.error("PDF generation error: ", err);
+                    loader.classList.add('opacity-0', 'pointer-events-none');
+                });
+            }, 600); // Tiny delay to ensure flawless transition render
+        }
+
+        // Dropdown change listener
+        document.getElementById('demographicSelect').addEventListener('change', function(e) {
+            updateDashboard(e.target.value);
+        });
+
+        // First render
+        window.onload = function() {
+            updateDashboard('total');
+        };
+    </script>
+</body>
+</html>
